@@ -13,6 +13,8 @@ export const Route = createFileRoute("/_authenticated/classroom")({
 
 function ClassroomList() {
   const navigate = useNavigate();
+  const profile = useProfile();
+  const canCreate = profile?.primary_role === "creator";
   const fetchList = useServerFn(listMyClassrooms);
   const joinFn = useServerFn(joinClassroomByCode);
   const createFn = useServerFn(createClassroom);
