@@ -37,7 +37,8 @@ function ModulPage() {
   }
 
   const onBabClick = (idx: number, title: string) => {
-    if (idx >= FREE_BAB_LIMIT) { setLockedBab({ idx, title }); setShowPaywall(true); }
+    if (idx >= FREE_BAB_LIMIT) { setLockedBab({ idx, title }); setShowPaywall(true); return; }
+    navigate({ to: "/belajar/$mapel/$bab", params: { mapel: slug, bab: String(idx) } });
   };
 
   const price = jenjang ? PRICING_BY_JENJANG[jenjang] : null;
