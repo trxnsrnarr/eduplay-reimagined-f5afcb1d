@@ -179,7 +179,36 @@ const M = {
   uiux: mk("uiux", "UI / UX Design", "🎨", C.pink, "kejuruan", "Pemula", 30, 55, bab(6, ["Design Principle", "Wireframe", "Prototyping", "Figma", "User Research", "Design System"])),
   jsPro: mk("js-pro", "JavaScript Lanjut", "📜", C.purple, "kejuruan", "Lanjut", 40, 75, bab(6, ["ES6+", "Async / Promise", "TypeScript", "Testing", "Build Tools", "Patterns"])),
   reactFw: mk("react-fw", "React & Framework", "⚛️", C.brand, "kejuruan", "Lanjut", 45, 80, bab(6, ["JSX", "Hooks", "State Management", "Routing", "Data Fetching", "Performance"])),
-  devops: mk("devops", "DevOps Basic", "🛠️", C.accent, "kejuruan", "Lanjut", 40, 75, bab(5, ["CI/CD", "Docker", "Git Advanced", "Monitoring", "Cloud Deploy"])),
+  devops: mk("devops", "DevOps Basic", "🛠️", C.accent, "kejuruan", "Lanjut", 40, 75, bab(7, ["Pengenalan DevOps", "Docker Fundamental", "Kubernetes Basic", "CI/CD Pipeline", "Monitoring Infrastructure", "Git Workflow", "Deployment Automation"])),
+
+  // ============ SMK SIJA (Sistem Informatika Jaringan & Aplikasi) ============
+  sijaASJ: mk("sija-asj", "Administrasi Sistem Jaringan", "🖥️", C.brand, "kejuruan", "Lanjut", 40, 75, bab(7, ["DHCP & DNS", "Web & Mail Server", "Proxy & Cache", "Database Server", "VPN", "Remote Access", "Hardening"])),
+  sijaVirt: mk("sija-virt", "Virtualisasi", "🧊", C.purple, "kejuruan", "Menengah", 35, 65, bab(6, ["Konsep VM", "VirtualBox / VMware", "Proxmox", "KVM/QEMU", "Container vs VM", "Snapshot & Migration"])),
+  sijaInfra: mk("sija-infra", "Infrastruktur Cloud", "🏢", C.brand, "kejuruan", "Lanjut", 40, 75, bab(6, ["Compute", "Storage", "Networking Cloud", "IAM", "Load Balancer", "Cost Optimization"])),
+  sijaMonitor: mk("sija-monitor", "Monitoring System", "📈", C.pink, "kejuruan", "Menengah", 30, 55, bab(5, ["Konsep Monitoring", "Zabbix / Nagios", "Grafana", "Prometheus", "Alerting"])),
+  sijaAuto: mk("sija-auto", "Network Automation", "🤖", C.purple, "kejuruan", "Lanjut", 35, 70, bab(5, ["Python Networking", "Ansible", "NETCONF / YANG", "Netmiko", "CI/CD untuk Network"])),
+  sijaDC: mk("sija-dc", "Data Center", "🏛️", C.accent, "kejuruan", "Lanjut", 35, 65, bab(5, ["Tier Data Center", "Rack & Cabling", "Power & Cooling", "Security Fisik", "DR & BCP"])),
+  sijaWifi: mk("sija-wifi", "Wireless Networking", "📶", C.brand, "kejuruan", "Menengah", 30, 55, bab(5, ["Standar 802.11", "Site Survey", "Access Point", "WPA / Security", "Mesh & Roaming"])),
+  sijaServer: mk("sija-server", "Server Management", "🗄️", C.purple, "kejuruan", "Menengah", 30, 60, bab(5, ["Hardware Server", "RAID & Storage", "OS Install", "Maintenance", "Capacity Planning"])),
+  sijaBackup: mk("sija-backup", "Backup & Restore", "💾", C.pink, "kejuruan", "Menengah", 25, 50, bab(5, ["Strategi Backup", "Tool Backup", "Restore Drill", "Off-site & Cloud", "Audit"])),
+  sijaTroubleshoot: mk("sija-troubleshoot", "Troubleshooting Jaringan", "🛠️", C.accent, "kejuruan", "Menengah", 30, 55, bab(5, ["Metodologi", "Layer 1-2 Issue", "Layer 3 Issue", "Aplikasi", "Tools (Wireshark, ping, traceroute)"])),
+  sijaCisco: mk("sija-cisco", "Cisco Networking", "🔌", C.brand, "kejuruan", "Lanjut", 40, 75, bab(6, ["CLI IOS", "VLAN & Trunk", "Routing Statis & Dinamis", "ACL", "NAT", "OSPF"])),
+  sijaSistem: mk("sija-sistem", "Sistem Terdistribusi", "🕸️", C.purple, "kejuruan", "Lanjut", 35, 70, bab(5, ["Konsep", "Komunikasi", "Konsistensi", "Toleransi Kesalahan", "Studi Kasus"])),
+
+  // ============ SMK RPL (extra) ============
+  rplSE: mk("rpl-se", "Software Engineering", "🧠", C.purple, "kejuruan", "Lanjut", 40, 75, bab(6, ["SDLC", "Agile & Scrum", "Requirement", "Design Pattern", "Quality", "Refactoring"])),
+  rplAI: mk("rpl-ai", "AI Programming", "🤖", C.pink, "kejuruan", "Lanjut", 40, 80, bab(6, ["Python", "NumPy & Pandas", "Scikit-Learn", "NLP Dasar", "Computer Vision", "Deploy Model"])),
+  rplGame: mk("rpl-game", "Game Development", "🎮", C.brand, "kejuruan", "Lanjut", 40, 75, bab(6, ["Pengantar Game", "Unity Basics", "2D Game", "3D Basics", "Game Logic", "Publish"])),
+  rplApi: mk("rpl-api", "API Development", "🔗", C.accent, "kejuruan", "Menengah", 35, 65, bab(6, ["HTTP & REST", "Express / Hono", "Auth (JWT)", "Validasi", "Dokumentasi (Swagger)", "Rate Limit"])),
+  rplGit: mk("rpl-git", "Version Control (Git)", "🌿", C.purple, "kejuruan", "Pemula", 25, 45, bab(5, ["Git Basic", "Branching", "Merge & Rebase", "Pull Request", "Git Flow"])),
+  rplDS: mk("rpl-ds", "Data Structure", "🧩", C.brand, "kejuruan", "Lanjut", 40, 75, bab(7, ["Array & List", "Stack & Queue", "Tree", "Graph", "Hashing", "Sorting", "Searching"])),
+  rplCP: mk("rpl-cp", "Competitive Programming", "🏆", C.pink, "kejuruan", "Lanjut", 45, 85, bab(6, ["Time Complexity", "Greedy", "DP", "Graph Algo", "Number Theory", "Latihan Kontes"])),
+  rplSecBasic: mk("rpl-sec", "Cyber Security Basic", "🛡️", C.purple, "kejuruan", "Menengah", 30, 60, bab(5, ["Threat & Risk", "OWASP Top 10", "Auth Security", "Crypto Dasar", "Secure Coding"])),
+  rplTest: mk("rpl-test", "Software Testing", "✅", C.accent, "kejuruan", "Menengah", 30, 55, bab(5, ["Unit Test", "Integration Test", "E2E (Playwright)", "TDD", "CI Test"])),
+  rplBackend: mk("rpl-backend", "Backend Engineering", "🧱", C.brand, "kejuruan", "Lanjut", 40, 75, bab(6, ["Arsitektur Backend", "Database & ORM", "Cache (Redis)", "Queue", "Observability", "Scaling"])),
+  rplFrontend: mk("rpl-frontend", "Frontend Engineering", "🎨", C.pink, "kejuruan", "Menengah", 35, 70, bab(6, ["HTML & CSS Modern", "JS / TS", "React", "State Management", "Performance", "Accessibility"])),
+  rplFull: mk("rpl-full", "Fullstack Development", "🌐", C.purple, "kejuruan", "Lanjut", 45, 85, bab(6, ["Setup Monorepo", "Auth End-to-End", "Database Layer", "API Layer", "UI Layer", "Deploy"])),
+  rplCloudApp: mk("rpl-cloudapp", "Cloud App Development", "☁️", C.brand, "kejuruan", "Lanjut", 40, 75, bab(5, ["12-Factor App", "Serverless", "Containerized App", "CI/CD ke Cloud", "Observability"])),
 
   // ============ SMK DKV ============
   desGrafis: mk("des-grafis", "Desain Grafis", "🎨", C.pink, "kejuruan", "Pemula", 30, 55, bab(7, ["Prinsip Desain", "Warna", "Tipografi", "Layout", "Adobe Illustrator", "Photoshop", "Branding Dasar"])),
