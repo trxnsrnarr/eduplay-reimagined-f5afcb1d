@@ -9,38 +9,284 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as RegisterRouteImport } from './routes/register'
+import { Route as LoginRouteImport } from './routes/login'
+import { Route as AuthenticatedRouteImport } from './routes/_authenticated'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as ApiAiTutorRouteImport } from './routes/api/ai-tutor'
+import { Route as AuthenticatedSubscriptionRouteImport } from './routes/_authenticated/subscription'
+import { Route as AuthenticatedSettingsRouteImport } from './routes/_authenticated/settings'
+import { Route as AuthenticatedProfileRouteImport } from './routes/_authenticated/profile'
+import { Route as AuthenticatedModulRouteImport } from './routes/_authenticated/modul'
+import { Route as AuthenticatedLearningPathRouteImport } from './routes/_authenticated/learning-path'
+import { Route as AuthenticatedLeaderboardRouteImport } from './routes/_authenticated/leaderboard'
+import { Route as AuthenticatedGamesRouteImport } from './routes/_authenticated/games'
+import { Route as AuthenticatedDashboardRouteImport } from './routes/_authenticated/dashboard'
+import { Route as AuthenticatedDailyChallengeRouteImport } from './routes/_authenticated/daily-challenge'
+import { Route as AuthenticatedBattleQuizRouteImport } from './routes/_authenticated/battle-quiz'
+import { Route as AuthenticatedAiTutorRouteImport } from './routes/_authenticated/ai-tutor'
+import { Route as AuthenticatedAchievementRouteImport } from './routes/_authenticated/achievement'
+import { Route as AuthenticatedModulSlugRouteImport } from './routes/_authenticated/modul.$slug'
+import { Route as AuthenticatedDashboardLinkAnakRouteImport } from './routes/_authenticated/dashboard.link-anak'
 
+const RegisterRoute = RegisterRouteImport.update({
+  id: '/register',
+  path: '/register',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const LoginRoute = LoginRouteImport.update({
+  id: '/login',
+  path: '/login',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AuthenticatedRoute = AuthenticatedRouteImport.update({
+  id: '/_authenticated',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ApiAiTutorRoute = ApiAiTutorRouteImport.update({
+  id: '/api/ai-tutor',
+  path: '/api/ai-tutor',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AuthenticatedSubscriptionRoute =
+  AuthenticatedSubscriptionRouteImport.update({
+    id: '/subscription',
+    path: '/subscription',
+    getParentRoute: () => AuthenticatedRoute,
+  } as any)
+const AuthenticatedSettingsRoute = AuthenticatedSettingsRouteImport.update({
+  id: '/settings',
+  path: '/settings',
+  getParentRoute: () => AuthenticatedRoute,
+} as any)
+const AuthenticatedProfileRoute = AuthenticatedProfileRouteImport.update({
+  id: '/profile',
+  path: '/profile',
+  getParentRoute: () => AuthenticatedRoute,
+} as any)
+const AuthenticatedModulRoute = AuthenticatedModulRouteImport.update({
+  id: '/modul',
+  path: '/modul',
+  getParentRoute: () => AuthenticatedRoute,
+} as any)
+const AuthenticatedLearningPathRoute =
+  AuthenticatedLearningPathRouteImport.update({
+    id: '/learning-path',
+    path: '/learning-path',
+    getParentRoute: () => AuthenticatedRoute,
+  } as any)
+const AuthenticatedLeaderboardRoute =
+  AuthenticatedLeaderboardRouteImport.update({
+    id: '/leaderboard',
+    path: '/leaderboard',
+    getParentRoute: () => AuthenticatedRoute,
+  } as any)
+const AuthenticatedGamesRoute = AuthenticatedGamesRouteImport.update({
+  id: '/games',
+  path: '/games',
+  getParentRoute: () => AuthenticatedRoute,
+} as any)
+const AuthenticatedDashboardRoute = AuthenticatedDashboardRouteImport.update({
+  id: '/dashboard',
+  path: '/dashboard',
+  getParentRoute: () => AuthenticatedRoute,
+} as any)
+const AuthenticatedDailyChallengeRoute =
+  AuthenticatedDailyChallengeRouteImport.update({
+    id: '/daily-challenge',
+    path: '/daily-challenge',
+    getParentRoute: () => AuthenticatedRoute,
+  } as any)
+const AuthenticatedBattleQuizRoute = AuthenticatedBattleQuizRouteImport.update({
+  id: '/battle-quiz',
+  path: '/battle-quiz',
+  getParentRoute: () => AuthenticatedRoute,
+} as any)
+const AuthenticatedAiTutorRoute = AuthenticatedAiTutorRouteImport.update({
+  id: '/ai-tutor',
+  path: '/ai-tutor',
+  getParentRoute: () => AuthenticatedRoute,
+} as any)
+const AuthenticatedAchievementRoute =
+  AuthenticatedAchievementRouteImport.update({
+    id: '/achievement',
+    path: '/achievement',
+    getParentRoute: () => AuthenticatedRoute,
+  } as any)
+const AuthenticatedModulSlugRoute = AuthenticatedModulSlugRouteImport.update({
+  id: '/$slug',
+  path: '/$slug',
+  getParentRoute: () => AuthenticatedModulRoute,
+} as any)
+const AuthenticatedDashboardLinkAnakRoute =
+  AuthenticatedDashboardLinkAnakRouteImport.update({
+    id: '/link-anak',
+    path: '/link-anak',
+    getParentRoute: () => AuthenticatedDashboardRoute,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/login': typeof LoginRoute
+  '/register': typeof RegisterRoute
+  '/achievement': typeof AuthenticatedAchievementRoute
+  '/ai-tutor': typeof AuthenticatedAiTutorRoute
+  '/battle-quiz': typeof AuthenticatedBattleQuizRoute
+  '/daily-challenge': typeof AuthenticatedDailyChallengeRoute
+  '/dashboard': typeof AuthenticatedDashboardRouteWithChildren
+  '/games': typeof AuthenticatedGamesRoute
+  '/leaderboard': typeof AuthenticatedLeaderboardRoute
+  '/learning-path': typeof AuthenticatedLearningPathRoute
+  '/modul': typeof AuthenticatedModulRouteWithChildren
+  '/profile': typeof AuthenticatedProfileRoute
+  '/settings': typeof AuthenticatedSettingsRoute
+  '/subscription': typeof AuthenticatedSubscriptionRoute
+  '/api/ai-tutor': typeof ApiAiTutorRoute
+  '/dashboard/link-anak': typeof AuthenticatedDashboardLinkAnakRoute
+  '/modul/$slug': typeof AuthenticatedModulSlugRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/login': typeof LoginRoute
+  '/register': typeof RegisterRoute
+  '/achievement': typeof AuthenticatedAchievementRoute
+  '/ai-tutor': typeof AuthenticatedAiTutorRoute
+  '/battle-quiz': typeof AuthenticatedBattleQuizRoute
+  '/daily-challenge': typeof AuthenticatedDailyChallengeRoute
+  '/dashboard': typeof AuthenticatedDashboardRouteWithChildren
+  '/games': typeof AuthenticatedGamesRoute
+  '/leaderboard': typeof AuthenticatedLeaderboardRoute
+  '/learning-path': typeof AuthenticatedLearningPathRoute
+  '/modul': typeof AuthenticatedModulRouteWithChildren
+  '/profile': typeof AuthenticatedProfileRoute
+  '/settings': typeof AuthenticatedSettingsRoute
+  '/subscription': typeof AuthenticatedSubscriptionRoute
+  '/api/ai-tutor': typeof ApiAiTutorRoute
+  '/dashboard/link-anak': typeof AuthenticatedDashboardLinkAnakRoute
+  '/modul/$slug': typeof AuthenticatedModulSlugRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/_authenticated': typeof AuthenticatedRouteWithChildren
+  '/login': typeof LoginRoute
+  '/register': typeof RegisterRoute
+  '/_authenticated/achievement': typeof AuthenticatedAchievementRoute
+  '/_authenticated/ai-tutor': typeof AuthenticatedAiTutorRoute
+  '/_authenticated/battle-quiz': typeof AuthenticatedBattleQuizRoute
+  '/_authenticated/daily-challenge': typeof AuthenticatedDailyChallengeRoute
+  '/_authenticated/dashboard': typeof AuthenticatedDashboardRouteWithChildren
+  '/_authenticated/games': typeof AuthenticatedGamesRoute
+  '/_authenticated/leaderboard': typeof AuthenticatedLeaderboardRoute
+  '/_authenticated/learning-path': typeof AuthenticatedLearningPathRoute
+  '/_authenticated/modul': typeof AuthenticatedModulRouteWithChildren
+  '/_authenticated/profile': typeof AuthenticatedProfileRoute
+  '/_authenticated/settings': typeof AuthenticatedSettingsRoute
+  '/_authenticated/subscription': typeof AuthenticatedSubscriptionRoute
+  '/api/ai-tutor': typeof ApiAiTutorRoute
+  '/_authenticated/dashboard/link-anak': typeof AuthenticatedDashboardLinkAnakRoute
+  '/_authenticated/modul/$slug': typeof AuthenticatedModulSlugRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths:
+    | '/'
+    | '/login'
+    | '/register'
+    | '/achievement'
+    | '/ai-tutor'
+    | '/battle-quiz'
+    | '/daily-challenge'
+    | '/dashboard'
+    | '/games'
+    | '/leaderboard'
+    | '/learning-path'
+    | '/modul'
+    | '/profile'
+    | '/settings'
+    | '/subscription'
+    | '/api/ai-tutor'
+    | '/dashboard/link-anak'
+    | '/modul/$slug'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to:
+    | '/'
+    | '/login'
+    | '/register'
+    | '/achievement'
+    | '/ai-tutor'
+    | '/battle-quiz'
+    | '/daily-challenge'
+    | '/dashboard'
+    | '/games'
+    | '/leaderboard'
+    | '/learning-path'
+    | '/modul'
+    | '/profile'
+    | '/settings'
+    | '/subscription'
+    | '/api/ai-tutor'
+    | '/dashboard/link-anak'
+    | '/modul/$slug'
+  id:
+    | '__root__'
+    | '/'
+    | '/_authenticated'
+    | '/login'
+    | '/register'
+    | '/_authenticated/achievement'
+    | '/_authenticated/ai-tutor'
+    | '/_authenticated/battle-quiz'
+    | '/_authenticated/daily-challenge'
+    | '/_authenticated/dashboard'
+    | '/_authenticated/games'
+    | '/_authenticated/leaderboard'
+    | '/_authenticated/learning-path'
+    | '/_authenticated/modul'
+    | '/_authenticated/profile'
+    | '/_authenticated/settings'
+    | '/_authenticated/subscription'
+    | '/api/ai-tutor'
+    | '/_authenticated/dashboard/link-anak'
+    | '/_authenticated/modul/$slug'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AuthenticatedRoute: typeof AuthenticatedRouteWithChildren
+  LoginRoute: typeof LoginRoute
+  RegisterRoute: typeof RegisterRoute
+  ApiAiTutorRoute: typeof ApiAiTutorRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/register': {
+      id: '/register'
+      path: '/register'
+      fullPath: '/register'
+      preLoaderRoute: typeof RegisterRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/login': {
+      id: '/login'
+      path: '/login'
+      fullPath: '/login'
+      preLoaderRoute: typeof LoginRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/_authenticated': {
+      id: '/_authenticated'
+      path: ''
+      fullPath: '/'
+      preLoaderRoute: typeof AuthenticatedRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/': {
       id: '/'
       path: '/'
@@ -48,22 +294,180 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/api/ai-tutor': {
+      id: '/api/ai-tutor'
+      path: '/api/ai-tutor'
+      fullPath: '/api/ai-tutor'
+      preLoaderRoute: typeof ApiAiTutorRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/_authenticated/subscription': {
+      id: '/_authenticated/subscription'
+      path: '/subscription'
+      fullPath: '/subscription'
+      preLoaderRoute: typeof AuthenticatedSubscriptionRouteImport
+      parentRoute: typeof AuthenticatedRoute
+    }
+    '/_authenticated/settings': {
+      id: '/_authenticated/settings'
+      path: '/settings'
+      fullPath: '/settings'
+      preLoaderRoute: typeof AuthenticatedSettingsRouteImport
+      parentRoute: typeof AuthenticatedRoute
+    }
+    '/_authenticated/profile': {
+      id: '/_authenticated/profile'
+      path: '/profile'
+      fullPath: '/profile'
+      preLoaderRoute: typeof AuthenticatedProfileRouteImport
+      parentRoute: typeof AuthenticatedRoute
+    }
+    '/_authenticated/modul': {
+      id: '/_authenticated/modul'
+      path: '/modul'
+      fullPath: '/modul'
+      preLoaderRoute: typeof AuthenticatedModulRouteImport
+      parentRoute: typeof AuthenticatedRoute
+    }
+    '/_authenticated/learning-path': {
+      id: '/_authenticated/learning-path'
+      path: '/learning-path'
+      fullPath: '/learning-path'
+      preLoaderRoute: typeof AuthenticatedLearningPathRouteImport
+      parentRoute: typeof AuthenticatedRoute
+    }
+    '/_authenticated/leaderboard': {
+      id: '/_authenticated/leaderboard'
+      path: '/leaderboard'
+      fullPath: '/leaderboard'
+      preLoaderRoute: typeof AuthenticatedLeaderboardRouteImport
+      parentRoute: typeof AuthenticatedRoute
+    }
+    '/_authenticated/games': {
+      id: '/_authenticated/games'
+      path: '/games'
+      fullPath: '/games'
+      preLoaderRoute: typeof AuthenticatedGamesRouteImport
+      parentRoute: typeof AuthenticatedRoute
+    }
+    '/_authenticated/dashboard': {
+      id: '/_authenticated/dashboard'
+      path: '/dashboard'
+      fullPath: '/dashboard'
+      preLoaderRoute: typeof AuthenticatedDashboardRouteImport
+      parentRoute: typeof AuthenticatedRoute
+    }
+    '/_authenticated/daily-challenge': {
+      id: '/_authenticated/daily-challenge'
+      path: '/daily-challenge'
+      fullPath: '/daily-challenge'
+      preLoaderRoute: typeof AuthenticatedDailyChallengeRouteImport
+      parentRoute: typeof AuthenticatedRoute
+    }
+    '/_authenticated/battle-quiz': {
+      id: '/_authenticated/battle-quiz'
+      path: '/battle-quiz'
+      fullPath: '/battle-quiz'
+      preLoaderRoute: typeof AuthenticatedBattleQuizRouteImport
+      parentRoute: typeof AuthenticatedRoute
+    }
+    '/_authenticated/ai-tutor': {
+      id: '/_authenticated/ai-tutor'
+      path: '/ai-tutor'
+      fullPath: '/ai-tutor'
+      preLoaderRoute: typeof AuthenticatedAiTutorRouteImport
+      parentRoute: typeof AuthenticatedRoute
+    }
+    '/_authenticated/achievement': {
+      id: '/_authenticated/achievement'
+      path: '/achievement'
+      fullPath: '/achievement'
+      preLoaderRoute: typeof AuthenticatedAchievementRouteImport
+      parentRoute: typeof AuthenticatedRoute
+    }
+    '/_authenticated/modul/$slug': {
+      id: '/_authenticated/modul/$slug'
+      path: '/$slug'
+      fullPath: '/modul/$slug'
+      preLoaderRoute: typeof AuthenticatedModulSlugRouteImport
+      parentRoute: typeof AuthenticatedModulRoute
+    }
+    '/_authenticated/dashboard/link-anak': {
+      id: '/_authenticated/dashboard/link-anak'
+      path: '/link-anak'
+      fullPath: '/dashboard/link-anak'
+      preLoaderRoute: typeof AuthenticatedDashboardLinkAnakRouteImport
+      parentRoute: typeof AuthenticatedDashboardRoute
+    }
   }
 }
 
+interface AuthenticatedDashboardRouteChildren {
+  AuthenticatedDashboardLinkAnakRoute: typeof AuthenticatedDashboardLinkAnakRoute
+}
+
+const AuthenticatedDashboardRouteChildren: AuthenticatedDashboardRouteChildren =
+  {
+    AuthenticatedDashboardLinkAnakRoute: AuthenticatedDashboardLinkAnakRoute,
+  }
+
+const AuthenticatedDashboardRouteWithChildren =
+  AuthenticatedDashboardRoute._addFileChildren(
+    AuthenticatedDashboardRouteChildren,
+  )
+
+interface AuthenticatedModulRouteChildren {
+  AuthenticatedModulSlugRoute: typeof AuthenticatedModulSlugRoute
+}
+
+const AuthenticatedModulRouteChildren: AuthenticatedModulRouteChildren = {
+  AuthenticatedModulSlugRoute: AuthenticatedModulSlugRoute,
+}
+
+const AuthenticatedModulRouteWithChildren =
+  AuthenticatedModulRoute._addFileChildren(AuthenticatedModulRouteChildren)
+
+interface AuthenticatedRouteChildren {
+  AuthenticatedAchievementRoute: typeof AuthenticatedAchievementRoute
+  AuthenticatedAiTutorRoute: typeof AuthenticatedAiTutorRoute
+  AuthenticatedBattleQuizRoute: typeof AuthenticatedBattleQuizRoute
+  AuthenticatedDailyChallengeRoute: typeof AuthenticatedDailyChallengeRoute
+  AuthenticatedDashboardRoute: typeof AuthenticatedDashboardRouteWithChildren
+  AuthenticatedGamesRoute: typeof AuthenticatedGamesRoute
+  AuthenticatedLeaderboardRoute: typeof AuthenticatedLeaderboardRoute
+  AuthenticatedLearningPathRoute: typeof AuthenticatedLearningPathRoute
+  AuthenticatedModulRoute: typeof AuthenticatedModulRouteWithChildren
+  AuthenticatedProfileRoute: typeof AuthenticatedProfileRoute
+  AuthenticatedSettingsRoute: typeof AuthenticatedSettingsRoute
+  AuthenticatedSubscriptionRoute: typeof AuthenticatedSubscriptionRoute
+}
+
+const AuthenticatedRouteChildren: AuthenticatedRouteChildren = {
+  AuthenticatedAchievementRoute: AuthenticatedAchievementRoute,
+  AuthenticatedAiTutorRoute: AuthenticatedAiTutorRoute,
+  AuthenticatedBattleQuizRoute: AuthenticatedBattleQuizRoute,
+  AuthenticatedDailyChallengeRoute: AuthenticatedDailyChallengeRoute,
+  AuthenticatedDashboardRoute: AuthenticatedDashboardRouteWithChildren,
+  AuthenticatedGamesRoute: AuthenticatedGamesRoute,
+  AuthenticatedLeaderboardRoute: AuthenticatedLeaderboardRoute,
+  AuthenticatedLearningPathRoute: AuthenticatedLearningPathRoute,
+  AuthenticatedModulRoute: AuthenticatedModulRouteWithChildren,
+  AuthenticatedProfileRoute: AuthenticatedProfileRoute,
+  AuthenticatedSettingsRoute: AuthenticatedSettingsRoute,
+  AuthenticatedSubscriptionRoute: AuthenticatedSubscriptionRoute,
+}
+
+const AuthenticatedRouteWithChildren = AuthenticatedRoute._addFileChildren(
+  AuthenticatedRouteChildren,
+)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AuthenticatedRoute: AuthenticatedRouteWithChildren,
+  LoginRoute: LoginRoute,
+  RegisterRoute: RegisterRoute,
+  ApiAiTutorRoute: ApiAiTutorRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
-
-import type { getRouter } from './router.tsx'
-import type { startInstance } from './start.ts'
-declare module '@tanstack/react-start' {
-  interface Register {
-    ssr: true
-    router: Awaited<ReturnType<typeof getRouter>>
-    config: Awaited<ReturnType<typeof startInstance.getOptions>>
-  }
-}
