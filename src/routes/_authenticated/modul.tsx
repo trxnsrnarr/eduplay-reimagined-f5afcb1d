@@ -45,27 +45,34 @@ function ModulListPage() {
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
           {list.map((m) => {
             const lockedCount = Math.max(0, m.bab.length - FREE_BAB_LIMIT);
+            const cover = coverFor(m.slug, m.name);
             return (
-              <Link key={m.slug} to="/modul/$slug" params={{ slug: m.slug }} className="group p-5 rounded-2xl border-2 border-border bg-white hover:border-primary hover:-translate-y-1 hover:shadow-card transition-all">
-                <div className="flex items-start justify-between mb-3">
-                  <div className={`w-14 h-14 rounded-2xl ${m.color} grid place-items-center text-2xl shadow-soft`}>{m.emoji}</div>
+              <Link key={m.slug} to="/modul/$slug" params={{ slug: m.slug }} className="group rounded-2xl border-2 border-border bg-white hover:border-primary hover:-translate-y-1 hover:shadow-card transition-all overflow-hidden">
+                <div className={`relative h-32 ${cover.gradient} overflow-hidden`}>
+                  <PatternSVG pattern={cover.pattern} className="absolute inset-0 w-full h-full" />
+                  <div className="absolute -bottom-6 -right-6 w-28 h-28 rounded-full bg-white/15 blur-2xl" />
+                  <div className="absolute inset-0 flex items-center justify-center">
+                    <div className="text-white font-extrabold tracking-tight text-4xl drop-shadow-sm">{cover.initials}</div>
+                  </div>
                   {lockedCount > 0 && (
-                    <span className="inline-flex items-center gap-1 text-[10px] font-bold px-2 py-1 rounded-full bg-muted text-muted-foreground">
+                    <span className="absolute top-2 right-2 inline-flex items-center gap-1 text-[10px] font-bold px-2 py-1 rounded-full bg-black/30 backdrop-blur text-white">
                       <Lock className="w-3 h-3" /> {lockedCount}
                     </span>
                   )}
                 </div>
-                <div className="font-extrabold text-base leading-tight">{m.name}</div>
-                <div className="mt-2 flex items-center gap-2 text-[11px] text-muted-foreground">
-                  <span className="px-2 py-0.5 rounded-full bg-muted font-bold">{m.difficulty}</span>
-                  <span className="inline-flex items-center gap-0.5"><Clock className="w-3 h-3" /> {m.estMinutes}m</span>
-                  <span className="inline-flex items-center gap-0.5"><Zap className="w-3 h-3" /> +{m.xpPerBab}</span>
+                <div className="p-4">
+                  <div className="font-extrabold text-base leading-tight line-clamp-2 min-h-[2.6rem]">{m.name}</div>
+                  <div className="mt-2 flex items-center gap-2 text-[11px] text-muted-foreground flex-wrap">
+                    <span className="px-2 py-0.5 rounded-full bg-muted font-bold">{m.difficulty}</span>
+                    <span className="inline-flex items-center gap-0.5"><Clock className="w-3 h-3" /> {m.estMinutes}m</span>
+                    <span className="inline-flex items-center gap-0.5"><Zap className="w-3 h-3" /> +{m.xpPerBab}</span>
+                  </div>
+                  <div className="mt-3 flex items-center justify-between text-[11px]">
+                    <span className="text-muted-foreground">{m.bab.length} bab</span>
+                    <span className="font-bold text-primary">0%</span>
+                  </div>
+                  <div className="mt-1 h-1.5 rounded-full bg-muted overflow-hidden"><div className="h-full w-0 bg-gradient-brand" /></div>
                 </div>
-                <div className="mt-3 flex items-center justify-between text-[11px]">
-                  <span className="text-muted-foreground">{m.bab.length} bab</span>
-                  <span className="font-bold text-primary">0%</span>
-                </div>
-                <div className="mt-1 h-1.5 rounded-full bg-muted overflow-hidden"><div className="h-full w-0 bg-gradient-brand" /></div>
               </Link>
             );
           })}
