@@ -5,6 +5,7 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } f
 import { supabase } from "@/integrations/supabase/client";
 import { useAuth } from "@/hooks/use-auth";
 import { findMapelBySlug, FREE_BAB_LIMIT, PRICING_BY_JENJANG, type Jenjang } from "@/lib/curriculum";
+import { coverFor, PatternSVG } from "@/lib/mapel-cover";
 
 export const Route = createFileRoute("/_authenticated/modul/$slug")({
   head: ({ params }) => ({ meta: [{ title: `Modul ${params.slug} — Eduverse` }] }),
@@ -42,6 +43,7 @@ function ModulPage() {
   };
 
   const price = jenjang ? PRICING_BY_JENJANG[jenjang] : null;
+  const cover = coverFor(mapel.slug, mapel.name);
 
   return (
     <div className="max-w-4xl mx-auto">
@@ -49,19 +51,24 @@ function ModulPage() {
         <ArrowLeft className="w-4 h-4" /> Kembali ke daftar modul
       </Link>
 
-      <div className={`p-6 lg:p-8 rounded-3xl ${mapel.color} text-white shadow-soft relative overflow-hidden`}>
-        <div className="absolute -top-10 -right-10 w-48 h-48 bg-white/10 rounded-full blur-2xl" />
-        <div className="text-5xl mb-3">{mapel.emoji}</div>
-        <h1 className="text-3xl md:text-4xl font-extrabold">{mapel.name}</h1>
-        <div className="mt-3 flex flex-wrap gap-2 text-[11px] font-bold">
-          <span className="px-2.5 py-1 rounded-full bg-white/20 inline-flex items-center gap-1"><Star className="w-3 h-3" /> {mapel.difficulty}</span>
-          <span className="px-2.5 py-1 rounded-full bg-white/20 inline-flex items-center gap-1"><Clock className="w-3 h-3" /> {mapel.estMinutes} menit / bab</span>
-          <span className="px-2.5 py-1 rounded-full bg-white/20 inline-flex items-center gap-1"><Zap className="w-3 h-3" /> +{mapel.xpPerBab} XP / bab</span>
-          <span className="px-2.5 py-1 rounded-full bg-white/20">{mapel.bab.length} bab · {FREE_BAB_LIMIT} gratis</span>
-        </div>
-        <div className="mt-5">
-          <div className="flex items-center justify-between text-[11px] font-bold mb-1"><span>Progress modul</span><span>0%</span></div>
-          <div className="h-2 rounded-full bg-white/20 overflow-hidden"><div className="h-full w-0 bg-white" /></div>
+      <div className={`p-6 lg:p-8 rounded-3xl ${cover.gradient} text-white shadow-soft relative overflow-hidden`}>
+        <PatternSVG pattern={cover.pattern} className="absolute inset-0 w-full h-full opacity-60" />
+        <div className="absolute -top-10 -right-10 w-48 h-48 bg-white/15 rounded-full blur-2xl" />
+        <div className="relative">
+          <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-white/20 backdrop-blur text-white font-extrabold text-2xl mb-3">
+            {cover.initials}
+          </div>
+          <h1 className="text-3xl md:text-4xl font-extrabold">{mapel.name}</h1>
+          <div className="mt-3 flex flex-wrap gap-2 text-[11px] font-bold">
+            <span className="px-2.5 py-1 rounded-full bg-white/20 inline-flex items-center gap-1"><Star className="w-3 h-3" /> {mapel.difficulty}</span>
+            <span className="px-2.5 py-1 rounded-full bg-white/20 inline-flex items-center gap-1"><Clock className="w-3 h-3" /> {mapel.estMinutes} menit / bab</span>
+            <span className="px-2.5 py-1 rounded-full bg-white/20 inline-flex items-center gap-1"><Zap className="w-3 h-3" /> +{mapel.xpPerBab} XP / bab</span>
+            <span className="px-2.5 py-1 rounded-full bg-white/20">{mapel.bab.length} bab · {FREE_BAB_LIMIT} gratis</span>
+          </div>
+          <div className="mt-5">
+            <div className="flex items-center justify-between text-[11px] font-bold mb-1"><span>Progress modul</span><span>0%</span></div>
+            <div className="h-2 rounded-full bg-white/20 overflow-hidden"><div className="h-full w-0 bg-white" /></div>
+          </div>
         </div>
       </div>
 
@@ -90,7 +97,7 @@ function ModulPage() {
                 onClick={() => onBabClick(idx, title)}
                 className={`w-full text-left p-4 rounded-2xl border-2 transition-all flex items-center gap-4 ${locked ? "bg-muted/40 border-border/60 hover:border-primary/40" : "bg-white border-border hover:border-primary hover:-translate-y-0.5 hover:shadow-card"}`}
               >
-                <div className={`w-12 h-12 rounded-xl grid place-items-center font-extrabold shrink-0 ${locked ? "bg-muted text-muted-foreground" : `${mapel.color} text-white`}`}>
+                <div className={`w-12 h-12 rounded-xl grid place-items-center font-extrabold shrink-0 ${locked ? "bg-muted text-muted-foreground" : `${cover.gradient} text-white`}`}>
                   {locked ? <Lock className="w-5 h-5" /> : idx + 1}
                 </div>
                 <div className="flex-1 min-w-0">

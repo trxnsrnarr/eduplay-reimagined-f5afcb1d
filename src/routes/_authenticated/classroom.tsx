@@ -1,8 +1,9 @@
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import { useServerFn } from "@tanstack/react-start";
-import { Users, Plus, LogIn, Sparkles, ArrowRight } from "lucide-react";
+import { Users, Plus, LogIn, Sparkles, ArrowRight, Info } from "lucide-react";
 import { listMyClassrooms, joinClassroomByCode, createClassroom } from "@/lib/api/classroom.functions";
+import { useProfile } from "@/components/shell/profile-context";
 import { toast } from "sonner";
 
 export const Route = createFileRoute("/_authenticated/classroom")({
@@ -12,6 +13,8 @@ export const Route = createFileRoute("/_authenticated/classroom")({
 
 function ClassroomList() {
   const navigate = useNavigate();
+  const profile = useProfile();
+  const canCreate = profile?.primary_role === "creator";
   const fetchList = useServerFn(listMyClassrooms);
   const joinFn = useServerFn(joinClassroomByCode);
   const createFn = useServerFn(createClassroom);
@@ -59,12 +62,28 @@ function ClassroomList() {
       <div className="flex items-start justify-between flex-wrap gap-4">
         <div>
           <h1 className="text-3xl font-extrabold flex items-center gap-2"><Users className="w-7 h-7" /> Classroom</h1>
-          <p className="text-sm text-muted-foreground mt-1">Gabung kelas, ikuti materi, diskusi realtime dengan teman & guru.</p>
+          <p className="text-sm text-muted-foreground mt-1">
+            {canCreate
+              ? "Buat kelas, kelola siswa, posting materi dan tugas."
+              : "Gabung kelas dengan kode dari guru kamu. Ikuti materi & diskusi realtime."}
+          </p>
         </div>
-        <button onClick={() => setShowCreate((v) => !v)} className="px-5 py-2.5 rounded-full bg-gradient-brand text-white text-sm font-bold inline-flex items-center gap-2 shadow-soft">
-          <Plus className="w-4 h-4" /> Buat Classroom
-        </button>
+        {canCreate && (
+          <button onClick={() => setShowCreate((v) => !v)} className="px-5 py-2.5 rounded-full bg-gradient-brand text-white text-sm font-bold inline-flex items-center gap-2 shadow-soft">
+            <Plus className="w-4 h-4" /> Buat Classroom
+          </button>
+        )}
       </div>
+
+      {!canCreate && (
+        <div className="flex items-start gap-3 p-4 rounded-2xl bg-primary/5 border border-primary/20">
+          <Info className="w-5 h-5 text-primary shrink-0 mt-0.5" />
+          <div className="text-sm">
+            <div className="font-bold">Akun siswa</div>
+            <div className="text-muted-foreground">Hanya guru / Edu Creator yang dapat membuat classroom. Kamu bisa bergabung dengan memasukkan kode kelas di bawah.</div>
+          </div>
+        </div>
+      )}
 
       <div className="grid md:grid-cols-2 gap-4">
         <div className="p-6 rounded-3xl bg-white border-2 border-border">
@@ -76,7 +95,7 @@ function ClassroomList() {
           </div>
         </div>
 
-        {showCreate ? (
+        {canCreate && showCreate ? (
           <div className="p-6 rounded-3xl bg-gradient-hero border-2 border-primary/30 space-y-3">
             <div className="font-extrabold flex items-center gap-2"><Sparkles className="w-5 h-5 text-primary" /> Classroom Baru</div>
             <input value={newName} onChange={(e) => setNewName(e.target.value)} placeholder="Nama classroom" className="w-full px-4 py-2.5 rounded-xl border-2 border-border focus:border-primary outline-none text-sm" />
