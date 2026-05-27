@@ -97,7 +97,7 @@ function ModulPage() {
                 onClick={() => onBabClick(idx, title)}
                 className={`w-full text-left p-4 rounded-2xl border-2 transition-all flex items-center gap-4 ${locked ? "bg-muted/40 border-border/60 hover:border-primary/40" : "bg-white border-border hover:border-primary hover:-translate-y-0.5 hover:shadow-card"}`}
               >
-                <div className={`w-12 h-12 rounded-xl grid place-items-center font-extrabold shrink-0 ${locked ? "bg-muted text-muted-foreground" : `${mapel.color} text-white`}`}>
+                <div className={`w-12 h-12 rounded-xl grid place-items-center font-extrabold shrink-0 ${locked ? "bg-muted text-muted-foreground" : `${cover.gradient} text-white`}`}>
                   {locked ? <Lock className="w-5 h-5" /> : idx + 1}
                 </div>
                 <div className="flex-1 min-w-0">
