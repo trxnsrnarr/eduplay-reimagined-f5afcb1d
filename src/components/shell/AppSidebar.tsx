@@ -1,9 +1,11 @@
 import { Link, useRouterState } from "@tanstack/react-router";
-import { Sparkles, LayoutDashboard, BookOpen, Bot, Swords, Gamepad2, Target, Trophy, Award, Route as RouteIcon, Crown, User, Settings, X } from "lucide-react";
+import { Sparkles, LayoutDashboard, BookOpen, Bot, Swords, Gamepad2, Target, Trophy, Award, Route as RouteIcon, Crown, User, Settings, X, Users, ShoppingBag } from "lucide-react";
 
 const items = [
   { to: "/dashboard", label: "Dashboard", icon: LayoutDashboard },
   { to: "/modul", label: "Modul Belajar", icon: BookOpen },
+  { to: "/classroom", label: "Classroom", icon: Users, badge: "NEW" },
+  { to: "/marketplace", label: "Creator Class", icon: ShoppingBag, badge: "HOT" },
   { to: "/ai-tutor", label: "AI Tutor", icon: Bot, badge: "AI" },
   { to: "/battle-quiz", label: "Battle Quiz", icon: Swords },
   { to: "/games", label: "Game Edukasi", icon: Gamepad2 },

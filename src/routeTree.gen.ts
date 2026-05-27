@@ -13,21 +13,26 @@ import { Route as RegisterRouteImport } from './routes/register'
 import { Route as LoginRouteImport } from './routes/login'
 import { Route as AuthenticatedRouteImport } from './routes/_authenticated'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as ApiMidtransWebhookRouteImport } from './routes/api/midtrans-webhook'
 import { Route as ApiAiTutorRouteImport } from './routes/api/ai-tutor'
 import { Route as AuthenticatedSubscriptionRouteImport } from './routes/_authenticated/subscription'
 import { Route as AuthenticatedSettingsRouteImport } from './routes/_authenticated/settings'
 import { Route as AuthenticatedProfileRouteImport } from './routes/_authenticated/profile'
 import { Route as AuthenticatedModulRouteImport } from './routes/_authenticated/modul'
+import { Route as AuthenticatedMarketplaceRouteImport } from './routes/_authenticated/marketplace'
 import { Route as AuthenticatedLearningPathRouteImport } from './routes/_authenticated/learning-path'
 import { Route as AuthenticatedLeaderboardRouteImport } from './routes/_authenticated/leaderboard'
 import { Route as AuthenticatedGamesRouteImport } from './routes/_authenticated/games'
 import { Route as AuthenticatedDashboardRouteImport } from './routes/_authenticated/dashboard'
 import { Route as AuthenticatedDailyChallengeRouteImport } from './routes/_authenticated/daily-challenge'
+import { Route as AuthenticatedClassroomRouteImport } from './routes/_authenticated/classroom'
 import { Route as AuthenticatedBattleQuizRouteImport } from './routes/_authenticated/battle-quiz'
 import { Route as AuthenticatedAiTutorRouteImport } from './routes/_authenticated/ai-tutor'
 import { Route as AuthenticatedAchievementRouteImport } from './routes/_authenticated/achievement'
 import { Route as AuthenticatedModulSlugRouteImport } from './routes/_authenticated/modul.$slug'
+import { Route as AuthenticatedMarketplaceIdRouteImport } from './routes/_authenticated/marketplace.$id'
 import { Route as AuthenticatedDashboardLinkAnakRouteImport } from './routes/_authenticated/dashboard.link-anak'
+import { Route as AuthenticatedClassroomIdRouteImport } from './routes/_authenticated/classroom.$id'
 
 const RegisterRoute = RegisterRouteImport.update({
   id: '/register',
@@ -46,6 +51,11 @@ const AuthenticatedRoute = AuthenticatedRouteImport.update({
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiMidtransWebhookRoute = ApiMidtransWebhookRouteImport.update({
+  id: '/api/midtrans-webhook',
+  path: '/api/midtrans-webhook',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ApiAiTutorRoute = ApiAiTutorRouteImport.update({
@@ -74,6 +84,12 @@ const AuthenticatedModulRoute = AuthenticatedModulRouteImport.update({
   path: '/modul',
   getParentRoute: () => AuthenticatedRoute,
 } as any)
+const AuthenticatedMarketplaceRoute =
+  AuthenticatedMarketplaceRouteImport.update({
+    id: '/marketplace',
+    path: '/marketplace',
+    getParentRoute: () => AuthenticatedRoute,
+  } as any)
 const AuthenticatedLearningPathRoute =
   AuthenticatedLearningPathRouteImport.update({
     id: '/learning-path',
@@ -102,6 +118,11 @@ const AuthenticatedDailyChallengeRoute =
     path: '/daily-challenge',
     getParentRoute: () => AuthenticatedRoute,
   } as any)
+const AuthenticatedClassroomRoute = AuthenticatedClassroomRouteImport.update({
+  id: '/classroom',
+  path: '/classroom',
+  getParentRoute: () => AuthenticatedRoute,
+} as any)
 const AuthenticatedBattleQuizRoute = AuthenticatedBattleQuizRouteImport.update({
   id: '/battle-quiz',
   path: '/battle-quiz',
@@ -123,11 +144,23 @@ const AuthenticatedModulSlugRoute = AuthenticatedModulSlugRouteImport.update({
   path: '/$slug',
   getParentRoute: () => AuthenticatedModulRoute,
 } as any)
+const AuthenticatedMarketplaceIdRoute =
+  AuthenticatedMarketplaceIdRouteImport.update({
+    id: '/$id',
+    path: '/$id',
+    getParentRoute: () => AuthenticatedMarketplaceRoute,
+  } as any)
 const AuthenticatedDashboardLinkAnakRoute =
   AuthenticatedDashboardLinkAnakRouteImport.update({
     id: '/link-anak',
     path: '/link-anak',
     getParentRoute: () => AuthenticatedDashboardRoute,
+  } as any)
+const AuthenticatedClassroomIdRoute =
+  AuthenticatedClassroomIdRouteImport.update({
+    id: '/$id',
+    path: '/$id',
+    getParentRoute: () => AuthenticatedClassroomRoute,
   } as any)
 
 export interface FileRoutesByFullPath {
@@ -137,17 +170,22 @@ export interface FileRoutesByFullPath {
   '/achievement': typeof AuthenticatedAchievementRoute
   '/ai-tutor': typeof AuthenticatedAiTutorRoute
   '/battle-quiz': typeof AuthenticatedBattleQuizRoute
+  '/classroom': typeof AuthenticatedClassroomRouteWithChildren
   '/daily-challenge': typeof AuthenticatedDailyChallengeRoute
   '/dashboard': typeof AuthenticatedDashboardRouteWithChildren
   '/games': typeof AuthenticatedGamesRoute
   '/leaderboard': typeof AuthenticatedLeaderboardRoute
   '/learning-path': typeof AuthenticatedLearningPathRoute
+  '/marketplace': typeof AuthenticatedMarketplaceRouteWithChildren
   '/modul': typeof AuthenticatedModulRouteWithChildren
   '/profile': typeof AuthenticatedProfileRoute
   '/settings': typeof AuthenticatedSettingsRoute
   '/subscription': typeof AuthenticatedSubscriptionRoute
   '/api/ai-tutor': typeof ApiAiTutorRoute
+  '/api/midtrans-webhook': typeof ApiMidtransWebhookRoute
+  '/classroom/$id': typeof AuthenticatedClassroomIdRoute
   '/dashboard/link-anak': typeof AuthenticatedDashboardLinkAnakRoute
+  '/marketplace/$id': typeof AuthenticatedMarketplaceIdRoute
   '/modul/$slug': typeof AuthenticatedModulSlugRoute
 }
 export interface FileRoutesByTo {
@@ -157,17 +195,22 @@ export interface FileRoutesByTo {
   '/achievement': typeof AuthenticatedAchievementRoute
   '/ai-tutor': typeof AuthenticatedAiTutorRoute
   '/battle-quiz': typeof AuthenticatedBattleQuizRoute
+  '/classroom': typeof AuthenticatedClassroomRouteWithChildren
   '/daily-challenge': typeof AuthenticatedDailyChallengeRoute
   '/dashboard': typeof AuthenticatedDashboardRouteWithChildren
   '/games': typeof AuthenticatedGamesRoute
   '/leaderboard': typeof AuthenticatedLeaderboardRoute
   '/learning-path': typeof AuthenticatedLearningPathRoute
+  '/marketplace': typeof AuthenticatedMarketplaceRouteWithChildren
   '/modul': typeof AuthenticatedModulRouteWithChildren
   '/profile': typeof AuthenticatedProfileRoute
   '/settings': typeof AuthenticatedSettingsRoute
   '/subscription': typeof AuthenticatedSubscriptionRoute
   '/api/ai-tutor': typeof ApiAiTutorRoute
+  '/api/midtrans-webhook': typeof ApiMidtransWebhookRoute
+  '/classroom/$id': typeof AuthenticatedClassroomIdRoute
   '/dashboard/link-anak': typeof AuthenticatedDashboardLinkAnakRoute
+  '/marketplace/$id': typeof AuthenticatedMarketplaceIdRoute
   '/modul/$slug': typeof AuthenticatedModulSlugRoute
 }
 export interface FileRoutesById {
@@ -179,17 +222,22 @@ export interface FileRoutesById {
   '/_authenticated/achievement': typeof AuthenticatedAchievementRoute
   '/_authenticated/ai-tutor': typeof AuthenticatedAiTutorRoute
   '/_authenticated/battle-quiz': typeof AuthenticatedBattleQuizRoute
+  '/_authenticated/classroom': typeof AuthenticatedClassroomRouteWithChildren
   '/_authenticated/daily-challenge': typeof AuthenticatedDailyChallengeRoute
   '/_authenticated/dashboard': typeof AuthenticatedDashboardRouteWithChildren
   '/_authenticated/games': typeof AuthenticatedGamesRoute
   '/_authenticated/leaderboard': typeof AuthenticatedLeaderboardRoute
   '/_authenticated/learning-path': typeof AuthenticatedLearningPathRoute
+  '/_authenticated/marketplace': typeof AuthenticatedMarketplaceRouteWithChildren
   '/_authenticated/modul': typeof AuthenticatedModulRouteWithChildren
   '/_authenticated/profile': typeof AuthenticatedProfileRoute
   '/_authenticated/settings': typeof AuthenticatedSettingsRoute
   '/_authenticated/subscription': typeof AuthenticatedSubscriptionRoute
   '/api/ai-tutor': typeof ApiAiTutorRoute
+  '/api/midtrans-webhook': typeof ApiMidtransWebhookRoute
+  '/_authenticated/classroom/$id': typeof AuthenticatedClassroomIdRoute
   '/_authenticated/dashboard/link-anak': typeof AuthenticatedDashboardLinkAnakRoute
+  '/_authenticated/marketplace/$id': typeof AuthenticatedMarketplaceIdRoute
   '/_authenticated/modul/$slug': typeof AuthenticatedModulSlugRoute
 }
 export interface FileRouteTypes {
@@ -201,17 +249,22 @@ export interface FileRouteTypes {
     | '/achievement'
     | '/ai-tutor'
     | '/battle-quiz'
+    | '/classroom'
     | '/daily-challenge'
     | '/dashboard'
     | '/games'
     | '/leaderboard'
     | '/learning-path'
+    | '/marketplace'
     | '/modul'
     | '/profile'
     | '/settings'
     | '/subscription'
     | '/api/ai-tutor'
+    | '/api/midtrans-webhook'
+    | '/classroom/$id'
     | '/dashboard/link-anak'
+    | '/marketplace/$id'
     | '/modul/$slug'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -221,17 +274,22 @@ export interface FileRouteTypes {
     | '/achievement'
     | '/ai-tutor'
     | '/battle-quiz'
+    | '/classroom'
     | '/daily-challenge'
     | '/dashboard'
     | '/games'
     | '/leaderboard'
     | '/learning-path'
+    | '/marketplace'
     | '/modul'
     | '/profile'
     | '/settings'
     | '/subscription'
     | '/api/ai-tutor'
+    | '/api/midtrans-webhook'
+    | '/classroom/$id'
     | '/dashboard/link-anak'
+    | '/marketplace/$id'
     | '/modul/$slug'
   id:
     | '__root__'
@@ -242,17 +300,22 @@ export interface FileRouteTypes {
     | '/_authenticated/achievement'
     | '/_authenticated/ai-tutor'
     | '/_authenticated/battle-quiz'
+    | '/_authenticated/classroom'
     | '/_authenticated/daily-challenge'
     | '/_authenticated/dashboard'
     | '/_authenticated/games'
     | '/_authenticated/leaderboard'
     | '/_authenticated/learning-path'
+    | '/_authenticated/marketplace'
     | '/_authenticated/modul'
     | '/_authenticated/profile'
     | '/_authenticated/settings'
     | '/_authenticated/subscription'
     | '/api/ai-tutor'
+    | '/api/midtrans-webhook'
+    | '/_authenticated/classroom/$id'
     | '/_authenticated/dashboard/link-anak'
+    | '/_authenticated/marketplace/$id'
     | '/_authenticated/modul/$slug'
   fileRoutesById: FileRoutesById
 }
@@ -262,6 +325,7 @@ export interface RootRouteChildren {
   LoginRoute: typeof LoginRoute
   RegisterRoute: typeof RegisterRoute
   ApiAiTutorRoute: typeof ApiAiTutorRoute
+  ApiMidtransWebhookRoute: typeof ApiMidtransWebhookRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -292,6 +356,13 @@ declare module '@tanstack/react-router' {
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof IndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/midtrans-webhook': {
+      id: '/api/midtrans-webhook'
+      path: '/api/midtrans-webhook'
+      fullPath: '/api/midtrans-webhook'
+      preLoaderRoute: typeof ApiMidtransWebhookRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/api/ai-tutor': {
@@ -329,6 +400,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedModulRouteImport
       parentRoute: typeof AuthenticatedRoute
     }
+    '/_authenticated/marketplace': {
+      id: '/_authenticated/marketplace'
+      path: '/marketplace'
+      fullPath: '/marketplace'
+      preLoaderRoute: typeof AuthenticatedMarketplaceRouteImport
+      parentRoute: typeof AuthenticatedRoute
+    }
     '/_authenticated/learning-path': {
       id: '/_authenticated/learning-path'
       path: '/learning-path'
@@ -364,6 +442,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedDailyChallengeRouteImport
       parentRoute: typeof AuthenticatedRoute
     }
+    '/_authenticated/classroom': {
+      id: '/_authenticated/classroom'
+      path: '/classroom'
+      fullPath: '/classroom'
+      preLoaderRoute: typeof AuthenticatedClassroomRouteImport
+      parentRoute: typeof AuthenticatedRoute
+    }
     '/_authenticated/battle-quiz': {
       id: '/_authenticated/battle-quiz'
       path: '/battle-quiz'
@@ -392,6 +477,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedModulSlugRouteImport
       parentRoute: typeof AuthenticatedModulRoute
     }
+    '/_authenticated/marketplace/$id': {
+      id: '/_authenticated/marketplace/$id'
+      path: '/$id'
+      fullPath: '/marketplace/$id'
+      preLoaderRoute: typeof AuthenticatedMarketplaceIdRouteImport
+      parentRoute: typeof AuthenticatedMarketplaceRoute
+    }
     '/_authenticated/dashboard/link-anak': {
       id: '/_authenticated/dashboard/link-anak'
       path: '/link-anak'
@@ -399,8 +491,29 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedDashboardLinkAnakRouteImport
       parentRoute: typeof AuthenticatedDashboardRoute
     }
+    '/_authenticated/classroom/$id': {
+      id: '/_authenticated/classroom/$id'
+      path: '/$id'
+      fullPath: '/classroom/$id'
+      preLoaderRoute: typeof AuthenticatedClassroomIdRouteImport
+      parentRoute: typeof AuthenticatedClassroomRoute
+    }
   }
 }
+
+interface AuthenticatedClassroomRouteChildren {
+  AuthenticatedClassroomIdRoute: typeof AuthenticatedClassroomIdRoute
+}
+
+const AuthenticatedClassroomRouteChildren: AuthenticatedClassroomRouteChildren =
+  {
+    AuthenticatedClassroomIdRoute: AuthenticatedClassroomIdRoute,
+  }
+
+const AuthenticatedClassroomRouteWithChildren =
+  AuthenticatedClassroomRoute._addFileChildren(
+    AuthenticatedClassroomRouteChildren,
+  )
 
 interface AuthenticatedDashboardRouteChildren {
   AuthenticatedDashboardLinkAnakRoute: typeof AuthenticatedDashboardLinkAnakRoute
@@ -414,6 +527,20 @@ const AuthenticatedDashboardRouteChildren: AuthenticatedDashboardRouteChildren =
 const AuthenticatedDashboardRouteWithChildren =
   AuthenticatedDashboardRoute._addFileChildren(
     AuthenticatedDashboardRouteChildren,
+  )
+
+interface AuthenticatedMarketplaceRouteChildren {
+  AuthenticatedMarketplaceIdRoute: typeof AuthenticatedMarketplaceIdRoute
+}
+
+const AuthenticatedMarketplaceRouteChildren: AuthenticatedMarketplaceRouteChildren =
+  {
+    AuthenticatedMarketplaceIdRoute: AuthenticatedMarketplaceIdRoute,
+  }
+
+const AuthenticatedMarketplaceRouteWithChildren =
+  AuthenticatedMarketplaceRoute._addFileChildren(
+    AuthenticatedMarketplaceRouteChildren,
   )
 
 interface AuthenticatedModulRouteChildren {
@@ -431,11 +558,13 @@ interface AuthenticatedRouteChildren {
   AuthenticatedAchievementRoute: typeof AuthenticatedAchievementRoute
   AuthenticatedAiTutorRoute: typeof AuthenticatedAiTutorRoute
   AuthenticatedBattleQuizRoute: typeof AuthenticatedBattleQuizRoute
+  AuthenticatedClassroomRoute: typeof AuthenticatedClassroomRouteWithChildren
   AuthenticatedDailyChallengeRoute: typeof AuthenticatedDailyChallengeRoute
   AuthenticatedDashboardRoute: typeof AuthenticatedDashboardRouteWithChildren
   AuthenticatedGamesRoute: typeof AuthenticatedGamesRoute
   AuthenticatedLeaderboardRoute: typeof AuthenticatedLeaderboardRoute
   AuthenticatedLearningPathRoute: typeof AuthenticatedLearningPathRoute
+  AuthenticatedMarketplaceRoute: typeof AuthenticatedMarketplaceRouteWithChildren
   AuthenticatedModulRoute: typeof AuthenticatedModulRouteWithChildren
   AuthenticatedProfileRoute: typeof AuthenticatedProfileRoute
   AuthenticatedSettingsRoute: typeof AuthenticatedSettingsRoute
@@ -446,11 +575,13 @@ const AuthenticatedRouteChildren: AuthenticatedRouteChildren = {
   AuthenticatedAchievementRoute: AuthenticatedAchievementRoute,
   AuthenticatedAiTutorRoute: AuthenticatedAiTutorRoute,
   AuthenticatedBattleQuizRoute: AuthenticatedBattleQuizRoute,
+  AuthenticatedClassroomRoute: AuthenticatedClassroomRouteWithChildren,
   AuthenticatedDailyChallengeRoute: AuthenticatedDailyChallengeRoute,
   AuthenticatedDashboardRoute: AuthenticatedDashboardRouteWithChildren,
   AuthenticatedGamesRoute: AuthenticatedGamesRoute,
   AuthenticatedLeaderboardRoute: AuthenticatedLeaderboardRoute,
   AuthenticatedLearningPathRoute: AuthenticatedLearningPathRoute,
+  AuthenticatedMarketplaceRoute: AuthenticatedMarketplaceRouteWithChildren,
   AuthenticatedModulRoute: AuthenticatedModulRouteWithChildren,
   AuthenticatedProfileRoute: AuthenticatedProfileRoute,
   AuthenticatedSettingsRoute: AuthenticatedSettingsRoute,
@@ -467,17 +598,8 @@ const rootRouteChildren: RootRouteChildren = {
   LoginRoute: LoginRoute,
   RegisterRoute: RegisterRoute,
   ApiAiTutorRoute: ApiAiTutorRoute,
+  ApiMidtransWebhookRoute: ApiMidtransWebhookRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
-
-import type { getRouter } from './router.tsx'
-import type { startInstance } from './start.ts'
-declare module '@tanstack/react-start' {
-  interface Register {
-    ssr: true
-    router: Awaited<ReturnType<typeof getRouter>>
-    config: Awaited<ReturnType<typeof startInstance.getOptions>>
-  }
-}
