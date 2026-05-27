@@ -5,6 +5,7 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } f
 import { supabase } from "@/integrations/supabase/client";
 import { useAuth } from "@/hooks/use-auth";
 import { findMapelBySlug, FREE_BAB_LIMIT, PRICING_BY_JENJANG, type Jenjang } from "@/lib/curriculum";
+import { coverFor, PatternSVG } from "@/lib/mapel-cover";
 
 export const Route = createFileRoute("/_authenticated/modul/$slug")({
   head: ({ params }) => ({ meta: [{ title: `Modul ${params.slug} — Eduverse` }] }),
