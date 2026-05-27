@@ -1,8 +1,9 @@
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import { useServerFn } from "@tanstack/react-start";
-import { Users, Plus, LogIn, Sparkles, ArrowRight } from "lucide-react";
+import { Users, Plus, LogIn, Sparkles, ArrowRight, Info } from "lucide-react";
 import { listMyClassrooms, joinClassroomByCode, createClassroom } from "@/lib/api/classroom.functions";
+import { useProfile } from "@/components/shell/profile-context";
 import { toast } from "sonner";
 
 export const Route = createFileRoute("/_authenticated/classroom")({
