@@ -13,7 +13,6 @@ import { Route as RegisterRouteImport } from './routes/register'
 import { Route as LoginRouteImport } from './routes/login'
 import { Route as AuthenticatedRouteImport } from './routes/_authenticated'
 import { Route as IndexRouteImport } from './routes/index'
-import { Route as ApiMidtransWebhookRouteImport } from './routes/api/midtrans-webhook'
 import { Route as ApiAiTutorRouteImport } from './routes/api/ai-tutor'
 import { Route as AuthenticatedSubscriptionRouteImport } from './routes/_authenticated/subscription'
 import { Route as AuthenticatedSettingsRouteImport } from './routes/_authenticated/settings'
@@ -29,6 +28,7 @@ import { Route as AuthenticatedClassroomRouteImport } from './routes/_authentica
 import { Route as AuthenticatedBattleQuizRouteImport } from './routes/_authenticated/battle-quiz'
 import { Route as AuthenticatedAiTutorRouteImport } from './routes/_authenticated/ai-tutor'
 import { Route as AuthenticatedAchievementRouteImport } from './routes/_authenticated/achievement'
+import { Route as ApiPublicMidtransWebhookRouteImport } from './routes/api/public/midtrans-webhook'
 import { Route as AuthenticatedModulSlugRouteImport } from './routes/_authenticated/modul.$slug'
 import { Route as AuthenticatedMarketplaceIdRouteImport } from './routes/_authenticated/marketplace.$id'
 import { Route as AuthenticatedDashboardLinkAnakRouteImport } from './routes/_authenticated/dashboard.link-anak'
@@ -52,11 +52,6 @@ const AuthenticatedRoute = AuthenticatedRouteImport.update({
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const ApiMidtransWebhookRoute = ApiMidtransWebhookRouteImport.update({
-  id: '/api/midtrans-webhook',
-  path: '/api/midtrans-webhook',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ApiAiTutorRoute = ApiAiTutorRouteImport.update({
@@ -140,6 +135,12 @@ const AuthenticatedAchievementRoute =
     path: '/achievement',
     getParentRoute: () => AuthenticatedRoute,
   } as any)
+const ApiPublicMidtransWebhookRoute =
+  ApiPublicMidtransWebhookRouteImport.update({
+    id: '/api/public/midtrans-webhook',
+    path: '/api/public/midtrans-webhook',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 const AuthenticatedModulSlugRoute = AuthenticatedModulSlugRouteImport.update({
   id: '/$slug',
   path: '/$slug',
@@ -189,11 +190,11 @@ export interface FileRoutesByFullPath {
   '/settings': typeof AuthenticatedSettingsRoute
   '/subscription': typeof AuthenticatedSubscriptionRoute
   '/api/ai-tutor': typeof ApiAiTutorRoute
-  '/api/midtrans-webhook': typeof ApiMidtransWebhookRoute
   '/classroom/$id': typeof AuthenticatedClassroomIdRoute
   '/dashboard/link-anak': typeof AuthenticatedDashboardLinkAnakRoute
   '/marketplace/$id': typeof AuthenticatedMarketplaceIdRoute
   '/modul/$slug': typeof AuthenticatedModulSlugRoute
+  '/api/public/midtrans-webhook': typeof ApiPublicMidtransWebhookRoute
   '/belajar/$mapel/$bab': typeof AuthenticatedBelajarMapelBabRoute
 }
 export interface FileRoutesByTo {
@@ -215,11 +216,11 @@ export interface FileRoutesByTo {
   '/settings': typeof AuthenticatedSettingsRoute
   '/subscription': typeof AuthenticatedSubscriptionRoute
   '/api/ai-tutor': typeof ApiAiTutorRoute
-  '/api/midtrans-webhook': typeof ApiMidtransWebhookRoute
   '/classroom/$id': typeof AuthenticatedClassroomIdRoute
   '/dashboard/link-anak': typeof AuthenticatedDashboardLinkAnakRoute
   '/marketplace/$id': typeof AuthenticatedMarketplaceIdRoute
   '/modul/$slug': typeof AuthenticatedModulSlugRoute
+  '/api/public/midtrans-webhook': typeof ApiPublicMidtransWebhookRoute
   '/belajar/$mapel/$bab': typeof AuthenticatedBelajarMapelBabRoute
 }
 export interface FileRoutesById {
@@ -243,11 +244,11 @@ export interface FileRoutesById {
   '/_authenticated/settings': typeof AuthenticatedSettingsRoute
   '/_authenticated/subscription': typeof AuthenticatedSubscriptionRoute
   '/api/ai-tutor': typeof ApiAiTutorRoute
-  '/api/midtrans-webhook': typeof ApiMidtransWebhookRoute
   '/_authenticated/classroom/$id': typeof AuthenticatedClassroomIdRoute
   '/_authenticated/dashboard/link-anak': typeof AuthenticatedDashboardLinkAnakRoute
   '/_authenticated/marketplace/$id': typeof AuthenticatedMarketplaceIdRoute
   '/_authenticated/modul/$slug': typeof AuthenticatedModulSlugRoute
+  '/api/public/midtrans-webhook': typeof ApiPublicMidtransWebhookRoute
   '/_authenticated/belajar/$mapel/$bab': typeof AuthenticatedBelajarMapelBabRoute
 }
 export interface FileRouteTypes {
@@ -271,11 +272,11 @@ export interface FileRouteTypes {
     | '/settings'
     | '/subscription'
     | '/api/ai-tutor'
-    | '/api/midtrans-webhook'
     | '/classroom/$id'
     | '/dashboard/link-anak'
     | '/marketplace/$id'
     | '/modul/$slug'
+    | '/api/public/midtrans-webhook'
     | '/belajar/$mapel/$bab'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -297,11 +298,11 @@ export interface FileRouteTypes {
     | '/settings'
     | '/subscription'
     | '/api/ai-tutor'
-    | '/api/midtrans-webhook'
     | '/classroom/$id'
     | '/dashboard/link-anak'
     | '/marketplace/$id'
     | '/modul/$slug'
+    | '/api/public/midtrans-webhook'
     | '/belajar/$mapel/$bab'
   id:
     | '__root__'
@@ -324,11 +325,11 @@ export interface FileRouteTypes {
     | '/_authenticated/settings'
     | '/_authenticated/subscription'
     | '/api/ai-tutor'
-    | '/api/midtrans-webhook'
     | '/_authenticated/classroom/$id'
     | '/_authenticated/dashboard/link-anak'
     | '/_authenticated/marketplace/$id'
     | '/_authenticated/modul/$slug'
+    | '/api/public/midtrans-webhook'
     | '/_authenticated/belajar/$mapel/$bab'
   fileRoutesById: FileRoutesById
 }
@@ -338,7 +339,7 @@ export interface RootRouteChildren {
   LoginRoute: typeof LoginRoute
   RegisterRoute: typeof RegisterRoute
   ApiAiTutorRoute: typeof ApiAiTutorRoute
-  ApiMidtransWebhookRoute: typeof ApiMidtransWebhookRoute
+  ApiPublicMidtransWebhookRoute: typeof ApiPublicMidtransWebhookRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -369,13 +370,6 @@ declare module '@tanstack/react-router' {
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof IndexRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/api/midtrans-webhook': {
-      id: '/api/midtrans-webhook'
-      path: '/api/midtrans-webhook'
-      fullPath: '/api/midtrans-webhook'
-      preLoaderRoute: typeof ApiMidtransWebhookRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/api/ai-tutor': {
@@ -482,6 +476,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/achievement'
       preLoaderRoute: typeof AuthenticatedAchievementRouteImport
       parentRoute: typeof AuthenticatedRoute
+    }
+    '/api/public/midtrans-webhook': {
+      id: '/api/public/midtrans-webhook'
+      path: '/api/public/midtrans-webhook'
+      fullPath: '/api/public/midtrans-webhook'
+      preLoaderRoute: typeof ApiPublicMidtransWebhookRouteImport
+      parentRoute: typeof rootRouteImport
     }
     '/_authenticated/modul/$slug': {
       id: '/_authenticated/modul/$slug'
@@ -620,8 +621,18 @@ const rootRouteChildren: RootRouteChildren = {
   LoginRoute: LoginRoute,
   RegisterRoute: RegisterRoute,
   ApiAiTutorRoute: ApiAiTutorRoute,
-  ApiMidtransWebhookRoute: ApiMidtransWebhookRoute,
+  ApiPublicMidtransWebhookRoute: ApiPublicMidtransWebhookRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
+
+import type { getRouter } from './router.tsx'
+import type { startInstance } from './start.ts'
+declare module '@tanstack/react-start' {
+  interface Register {
+    ssr: true
+    router: Awaited<ReturnType<typeof getRouter>>
+    config: Awaited<ReturnType<typeof startInstance.getOptions>>
+  }
+}
