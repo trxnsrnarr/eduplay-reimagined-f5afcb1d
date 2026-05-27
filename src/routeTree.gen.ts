@@ -33,6 +33,7 @@ import { Route as AuthenticatedModulSlugRouteImport } from './routes/_authentica
 import { Route as AuthenticatedMarketplaceIdRouteImport } from './routes/_authenticated/marketplace.$id'
 import { Route as AuthenticatedDashboardLinkAnakRouteImport } from './routes/_authenticated/dashboard.link-anak'
 import { Route as AuthenticatedClassroomIdRouteImport } from './routes/_authenticated/classroom.$id'
+import { Route as AuthenticatedBelajarMapelBabRouteImport } from './routes/_authenticated/belajar.$mapel.$bab'
 
 const RegisterRoute = RegisterRouteImport.update({
   id: '/register',
@@ -162,6 +163,12 @@ const AuthenticatedClassroomIdRoute =
     path: '/$id',
     getParentRoute: () => AuthenticatedClassroomRoute,
   } as any)
+const AuthenticatedBelajarMapelBabRoute =
+  AuthenticatedBelajarMapelBabRouteImport.update({
+    id: '/belajar/$mapel/$bab',
+    path: '/belajar/$mapel/$bab',
+    getParentRoute: () => AuthenticatedRoute,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -187,6 +194,7 @@ export interface FileRoutesByFullPath {
   '/dashboard/link-anak': typeof AuthenticatedDashboardLinkAnakRoute
   '/marketplace/$id': typeof AuthenticatedMarketplaceIdRoute
   '/modul/$slug': typeof AuthenticatedModulSlugRoute
+  '/belajar/$mapel/$bab': typeof AuthenticatedBelajarMapelBabRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -212,6 +220,7 @@ export interface FileRoutesByTo {
   '/dashboard/link-anak': typeof AuthenticatedDashboardLinkAnakRoute
   '/marketplace/$id': typeof AuthenticatedMarketplaceIdRoute
   '/modul/$slug': typeof AuthenticatedModulSlugRoute
+  '/belajar/$mapel/$bab': typeof AuthenticatedBelajarMapelBabRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -239,6 +248,7 @@ export interface FileRoutesById {
   '/_authenticated/dashboard/link-anak': typeof AuthenticatedDashboardLinkAnakRoute
   '/_authenticated/marketplace/$id': typeof AuthenticatedMarketplaceIdRoute
   '/_authenticated/modul/$slug': typeof AuthenticatedModulSlugRoute
+  '/_authenticated/belajar/$mapel/$bab': typeof AuthenticatedBelajarMapelBabRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -266,6 +276,7 @@ export interface FileRouteTypes {
     | '/dashboard/link-anak'
     | '/marketplace/$id'
     | '/modul/$slug'
+    | '/belajar/$mapel/$bab'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -291,6 +302,7 @@ export interface FileRouteTypes {
     | '/dashboard/link-anak'
     | '/marketplace/$id'
     | '/modul/$slug'
+    | '/belajar/$mapel/$bab'
   id:
     | '__root__'
     | '/'
@@ -317,6 +329,7 @@ export interface FileRouteTypes {
     | '/_authenticated/dashboard/link-anak'
     | '/_authenticated/marketplace/$id'
     | '/_authenticated/modul/$slug'
+    | '/_authenticated/belajar/$mapel/$bab'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -498,6 +511,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedClassroomIdRouteImport
       parentRoute: typeof AuthenticatedClassroomRoute
     }
+    '/_authenticated/belajar/$mapel/$bab': {
+      id: '/_authenticated/belajar/$mapel/$bab'
+      path: '/belajar/$mapel/$bab'
+      fullPath: '/belajar/$mapel/$bab'
+      preLoaderRoute: typeof AuthenticatedBelajarMapelBabRouteImport
+      parentRoute: typeof AuthenticatedRoute
+    }
   }
 }
 
@@ -569,6 +589,7 @@ interface AuthenticatedRouteChildren {
   AuthenticatedProfileRoute: typeof AuthenticatedProfileRoute
   AuthenticatedSettingsRoute: typeof AuthenticatedSettingsRoute
   AuthenticatedSubscriptionRoute: typeof AuthenticatedSubscriptionRoute
+  AuthenticatedBelajarMapelBabRoute: typeof AuthenticatedBelajarMapelBabRoute
 }
 
 const AuthenticatedRouteChildren: AuthenticatedRouteChildren = {
@@ -586,6 +607,7 @@ const AuthenticatedRouteChildren: AuthenticatedRouteChildren = {
   AuthenticatedProfileRoute: AuthenticatedProfileRoute,
   AuthenticatedSettingsRoute: AuthenticatedSettingsRoute,
   AuthenticatedSubscriptionRoute: AuthenticatedSubscriptionRoute,
+  AuthenticatedBelajarMapelBabRoute: AuthenticatedBelajarMapelBabRoute,
 }
 
 const AuthenticatedRouteWithChildren = AuthenticatedRoute._addFileChildren(
