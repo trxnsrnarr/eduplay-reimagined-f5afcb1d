@@ -14,16 +14,120 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      parent_child_links: {
+        Row: {
+          child_id: string
+          created_at: string
+          id: string
+          parent_id: string
+        }
+        Insert: {
+          child_id: string
+          created_at?: string
+          id?: string
+          parent_id: string
+        }
+        Update: {
+          child_id?: string
+          created_at?: string
+          id?: string
+          parent_id?: string
+        }
+        Relationships: []
+      }
+      profiles: {
+        Row: {
+          bidang: string | null
+          created_at: string
+          display_name: string | null
+          id: string
+          institusi: string | null
+          jenjang: Database["public"]["Enums"]["jenjang_level"] | null
+          jenjang_anak: Database["public"]["Enums"]["jenjang_level"] | null
+          jurusan: string | null
+          kelas: string | null
+          nama_anak: string | null
+          pengalaman: string | null
+          primary_role: Database["public"]["Enums"]["app_role"]
+          student_invite_code: string | null
+          tujuan_belajar: string | null
+          updated_at: string
+        }
+        Insert: {
+          bidang?: string | null
+          created_at?: string
+          display_name?: string | null
+          id: string
+          institusi?: string | null
+          jenjang?: Database["public"]["Enums"]["jenjang_level"] | null
+          jenjang_anak?: Database["public"]["Enums"]["jenjang_level"] | null
+          jurusan?: string | null
+          kelas?: string | null
+          nama_anak?: string | null
+          pengalaman?: string | null
+          primary_role?: Database["public"]["Enums"]["app_role"]
+          student_invite_code?: string | null
+          tujuan_belajar?: string | null
+          updated_at?: string
+        }
+        Update: {
+          bidang?: string | null
+          created_at?: string
+          display_name?: string | null
+          id?: string
+          institusi?: string | null
+          jenjang?: Database["public"]["Enums"]["jenjang_level"] | null
+          jenjang_anak?: Database["public"]["Enums"]["jenjang_level"] | null
+          jurusan?: string | null
+          kelas?: string | null
+          nama_anak?: string | null
+          pengalaman?: string | null
+          primary_role?: Database["public"]["Enums"]["app_role"]
+          student_invite_code?: string | null
+          tujuan_belajar?: string | null
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      user_roles: {
+        Row: {
+          created_at: string
+          id: string
+          role: Database["public"]["Enums"]["app_role"]
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          role: Database["public"]["Enums"]["app_role"]
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          role?: Database["public"]["Enums"]["app_role"]
+          user_id?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
     }
     Functions: {
-      [_ in never]: never
+      generate_student_invite_code: { Args: never; Returns: string }
+      has_role: {
+        Args: {
+          _role: Database["public"]["Enums"]["app_role"]
+          _user_id: string
+        }
+        Returns: boolean
+      }
+      link_child_by_code: { Args: { _code: string }; Returns: string }
     }
     Enums: {
-      [_ in never]: never
+      app_role: "siswa" | "creator" | "parent"
+      jenjang_level: "sd" | "smp" | "sma" | "smk" | "utbk"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -150,6 +254,9 @@ export type CompositeTypes<
 
 export const Constants = {
   public: {
-    Enums: {},
+    Enums: {
+      app_role: ["siswa", "creator", "parent"],
+      jenjang_level: ["sd", "smp", "sma", "smk", "utbk"],
+    },
   },
 } as const
