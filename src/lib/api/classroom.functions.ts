@@ -50,6 +50,11 @@ export const createClassroom = createServerFn({ method: "POST" })
   )
   .handler(async ({ data, context }) => {
     const { supabase, userId } = context;
+    // Role gate — siswa tidak boleh membuat classroom.
+    const { data: prof } = await supabase.from("profiles").select("primary_role").eq("id", userId).maybeSingle();
+    if (!prof || prof.primary_role === "siswa") {
+      throw new Error("Hanya guru / Edu Creator yang dapat membuat classroom. Akun siswa hanya dapat bergabung dengan kode kelas.");
+    }
     const { data: row, error } = await supabase
       .from("classrooms")
       .insert({
