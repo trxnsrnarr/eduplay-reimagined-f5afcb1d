@@ -312,16 +312,20 @@ export function getMapelForTrack(jenjang: Jenjang | null | undefined, jurusan?: 
       }
       case "smk": {
         const umum = ["binSMA", "bingSMA", "mtkWajib", "ppknSMA", "agamaSMA", "pjokSMA"] as MapelKey[];
-        if (jurusan === "RPL") return [...umum, "pemrograman", "webDev", "mobileDev", "database", "uiux", "jsPro", "reactFw", "devops"];
-        if (jurusan === "TKJ") return [...umum, "jaringan", "linuxSrv", "mikrotik", "adminSys", "fiber", "cyberSec", "cloud", "iot"];
-        if (jurusan === "DKV") return [...umum, "desGrafis", "ilustrasi", "motion", "videoEdit", "branding", "uiux"];
-        if (jurusan === "Akuntansi") return [...umum, "akunDasar", "perpajakan", "spreadsheet", "audit"];
+        if (jurusan === "Rekayasa Perangkat Lunak (RPL)" || jurusan === "RPL")
+          return [...umum, "pemrograman", "rplDS", "rplSE", "webDev", "rplFrontend", "rplBackend", "rplFull", "mobileDev", "database", "rplApi", "uiux", "jsPro", "reactFw", "devops", "rplGit", "rplTest", "rplSecBasic", "rplAI", "rplGame", "rplCP", "rplCloudApp"];
+        if (jurusan === "Sistem Informatika Jaringan & Aplikasi (SIJA)" || jurusan === "SIJA")
+          return [...umum, "jaringan", "sijaASJ", "sijaCisco", "mikrotik", "linuxSrv", "adminSys", "sijaServer", "sijaVirt", "cloud", "sijaInfra", "devops", "sijaMonitor", "sijaAuto", "iot", "sijaSistem", "sijaDC", "sijaWifi", "fiber", "sijaBackup", "sijaTroubleshoot", "cyberSec"];
+        if (jurusan === "Teknik Komputer & Jaringan (TKJ)" || jurusan === "TKJ")
+          return [...umum, "jaringan", "linuxSrv", "mikrotik", "adminSys", "fiber", "sijaWifi", "sijaTroubleshoot", "sijaBackup", "cyberSec", "cloud", "iot"];
+        if (jurusan === "Desain Komunikasi Visual (DKV)" || jurusan === "DKV") return [...umum, "desGrafis", "ilustrasi", "motion", "videoEdit", "branding", "uiux"];
+        if (jurusan === "Akuntansi & Keuangan Lembaga" || jurusan === "Akuntansi") return [...umum, "akunDasar", "perpajakan", "spreadsheet", "audit"];
         if (jurusan === "Multimedia") return [...umum, "desGrafis", "fotografi", "videoEdit", "animasi", "motion"];
-        if (jurusan === "Otomotif") return [...umum, "mesinDasar", "enginePerf"];
-        if (jurusan === "Tata Boga") return [...umum, "pastry", "kulinerNus"];
+        if (jurusan?.includes("Otomotif") || jurusan?.includes("Kendaraan")) return [...umum, "mesinDasar", "enginePerf"];
+        if (jurusan?.includes("Boga") || jurusan?.includes("Kuliner")) return [...umum, "pastry", "kulinerNus"];
         if (jurusan === "Perhotelan") return [...umum, "frontOffice", "housekeeping"];
-        if (jurusan === "Farmasi") return [...umum, "farmasi"];
-        return [...umum, "pemrograman", "database"];
+        if (jurusan?.includes("Farmasi")) return [...umum, "farmasi"];
+        return [...umum, "pemrograman", "database", "webDev"];
       }
       case "kuliah": {
         if (jurusan === "Teknik Informatika" || jurusan === "Sistem Informasi")
