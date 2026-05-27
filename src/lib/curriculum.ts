@@ -13,32 +13,81 @@ export const JENJANG_OPTIONS: { value: Jenjang; label: string; emoji: string }[]
   { value: "utbk", label: "Persiapan UTBK / TKA", emoji: "🚀" },
 ];
 
+export const SMA_JURUSAN = [
+  "IPA",
+  "IPS",
+  "Bahasa",
+  "Kurikulum Merdeka — Sains & Teknologi",
+  "Kurikulum Merdeka — Sosial & Humaniora",
+  "Kurikulum Merdeka — Bahasa & Budaya",
+  "Kurikulum Merdeka — Vokasi",
+];
+
+export const SMK_JURUSAN_GROUPS: { group: string; items: string[] }[] = [
+  { group: "Teknologi Informasi & Komunikasi", items: ["Teknik Komputer & Jaringan (TKJ)", "Sistem Informatika Jaringan & Aplikasi (SIJA)", "Rekayasa Perangkat Lunak (RPL)", "Teknik Jaringan Akses Telekomunikasi"] },
+  { group: "Seni, Desain & Media", items: ["Desain Komunikasi Visual (DKV)", "Multimedia", "Animasi", "Broadcasting & Perfilman", "Perfilman", "Desain Grafika", "Fotografi"] },
+  { group: "Bisnis & Manajemen", items: ["Akuntansi & Keuangan Lembaga", "Bisnis Digital", "Pemasaran", "Manajemen Perkantoran", "Otomatisasi & Tata Kelola Perkantoran", "Logistik"] },
+  { group: "Pariwisata & Kuliner", items: ["Perhotelan", "Tata Boga (Kuliner)", "Tata Busana", "Tata Kecantikan", "Usaha Layanan Wisata"] },
+  { group: "Kesehatan & Farmasi", items: ["Farmasi Klinis & Komunitas", "Keperawatan", "Analis Kesehatan", "Asisten Kesehatan Gigi"] },
+  { group: "Teknik & Manufaktur", items: ["Teknik Mesin", "Teknik Elektro", "Teknik Otomasi Industri", "Teknik Kendaraan Ringan (TKR)", "Teknik & Bisnis Sepeda Motor (TBSM)", "Teknik Audio Video", "Teknik Pendingin & Tata Udara", "Teknik Pengelasan (Las)", "Teknik Pemesinan", "Teknik Konstruksi & Properti"] },
+  { group: "Maritim & Perikanan", items: ["Nautika Kapal Niaga", "Teknika Kapal Niaga", "Nautika Kapal Penangkap Ikan", "Agribisnis Perikanan", "Budidaya Perikanan"] },
+  { group: "Agribisnis & Agroteknologi", items: ["Agribisnis Tanaman Pangan & Hortikultura", "Agribisnis Ternak", "Agribisnis Pengolahan Hasil Pertanian", "Kehutanan"] },
+  { group: "Energi, Pertambangan & Geomatika", items: ["Geomatika", "Geologi Pertambangan", "Energi Terbarukan", "Teknik Energi Surya, Hidro & Angin"] },
+];
+
+export const SMK_JURUSAN: string[] = SMK_JURUSAN_GROUPS.flatMap((g) => g.items);
+
+export const FAKULTAS_OPTIONS = [
+  "Fakultas Teknik", "Fakultas Kedokteran", "Fakultas Ekonomi & Bisnis", "Fakultas Hukum",
+  "Fakultas Ilmu Komunikasi", "Fakultas Seni & Desain", "Fakultas Psikologi", "Fakultas Pendidikan (FKIP)",
+  "Fakultas Pertanian", "Fakultas Kelautan & Perikanan", "Fakultas MIPA", "Fakultas Ilmu Sosial & Politik (FISIP)",
+  "Fakultas Ilmu Komputer", "Fakultas Kesehatan Masyarakat",
+];
+
+export const KULIAH_PRODI: Record<string, string[]> = {
+  "Fakultas Teknik": ["Teknik Informatika", "Sistem Informasi", "Teknik Elektro", "Teknik Sipil", "Teknik Mesin", "Teknik Industri", "Teknik Kimia", "Teknik Lingkungan", "Teknik Arsitektur", "Teknik Geodesi", "Teknik Perkapalan"],
+  "Fakultas Kedokteran": ["Pendidikan Dokter", "Kedokteran Gigi", "Farmasi", "Keperawatan", "Kebidanan", "Gizi"],
+  "Fakultas Ekonomi & Bisnis": ["Manajemen", "Akuntansi", "Ilmu Ekonomi", "Bisnis Digital", "Ekonomi Pembangunan", "Keuangan & Perbankan"],
+  "Fakultas Hukum": ["Ilmu Hukum", "Hukum Bisnis", "Hukum Internasional"],
+  "Fakultas Ilmu Komunikasi": ["Ilmu Komunikasi", "Hubungan Masyarakat", "Jurnalistik", "Periklanan", "Broadcasting", "Digital Media"],
+  "Fakultas Seni & Desain": ["Desain Komunikasi Visual", "Desain Produk", "Desain Interior", "Seni Rupa", "Fotografi", "Film & Televisi", "Musik"],
+  "Fakultas Psikologi": ["Psikologi"],
+  "Fakultas Pendidikan (FKIP)": ["Pendidikan Matematika", "Pendidikan Bahasa Indonesia", "Pendidikan Bahasa Inggris", "Pendidikan IPA", "Pendidikan IPS", "PGSD", "PG-PAUD", "Bimbingan & Konseling"],
+  "Fakultas Pertanian": ["Agroteknologi", "Agribisnis", "Ilmu Tanah", "Peternakan", "Teknologi Pangan", "Kehutanan"],
+  "Fakultas Kelautan & Perikanan": ["Ilmu Kelautan", "Manajemen Sumberdaya Perairan", "Budidaya Perairan", "Teknologi Hasil Perikanan"],
+  "Fakultas MIPA": ["Matematika", "Fisika", "Kimia", "Biologi", "Statistika", "Aktuaria"],
+  "Fakultas Ilmu Sosial & Politik (FISIP)": ["Ilmu Politik", "Hubungan Internasional", "Administrasi Publik", "Sosiologi", "Antropologi", "Ilmu Pemerintahan"],
+  "Fakultas Ilmu Komputer": ["Ilmu Komputer", "Teknologi Informasi", "Sistem Informasi", "Data Science", "Cyber Security", "Kecerdasan Buatan"],
+  "Fakultas Kesehatan Masyarakat": ["Kesehatan Masyarakat", "Epidemiologi", "Kesehatan Lingkungan"],
+};
+
+export const UTBK_RUMPUN = [
+  { value: "saintek", label: "Saintek", desc: "Matematika, Fisika, Kimia, Biologi" },
+  { value: "soshum", label: "Soshum", desc: "Ekonomi, Geografi, Sejarah, Sosiologi" },
+  { value: "campuran", label: "Campuran", desc: "Gabungan Saintek + Soshum" },
+];
+
+export const AGAMA_OPTIONS: { value: "islam"|"kristen"|"katolik"|"hindu"|"buddha"|"konghucu"; label: string; emoji: string }[] = [
+  { value: "islam", label: "Islam", emoji: "☪️" },
+  { value: "kristen", label: "Kristen", emoji: "✝️" },
+  { value: "katolik", label: "Katolik", emoji: "⛪" },
+  { value: "hindu", label: "Hindu", emoji: "🕉️" },
+  { value: "buddha", label: "Buddha", emoji: "☸️" },
+  { value: "konghucu", label: "Konghucu", emoji: "🏮" },
+];
+
 export const JURUSAN_OPTIONS: Record<Jenjang, string[]> = {
   sd: [],
   smp: [],
-  sma: ["IPA", "IPS", "Bahasa"],
-  smk: ["TKJ", "RPL", "DKV", "Multimedia", "Akuntansi", "Perhotelan", "Tata Boga", "Otomotif", "Farmasi"],
-  kuliah: [
-    "Teknik Informatika",
-    "Sistem Informasi",
-    "Manajemen",
-    "Akuntansi",
-    "Kedokteran",
-    "Hukum",
-    "Psikologi",
-    "Desain Komunikasi Visual",
-    "Teknik Sipil",
-    "Ilmu Komunikasi",
-  ],
+  sma: SMA_JURUSAN,
+  smk: SMK_JURUSAN,
+  kuliah: Object.values(KULIAH_PRODI).flat(),
   utbk: [],
 };
 
 export const TUJUAN_OPTIONS = [
-  "Belajar materi sekolah",
-  "Persiapan ujian sekolah",
-  "Persiapan UTBK / TKA",
-  "Meningkatkan nilai rapor",
-  "Belajar skill tertentu",
+  "Belajar materi sekolah", "Persiapan ujian sekolah", "Persiapan UTBK / TKA",
+  "Meningkatkan nilai rapor", "Belajar skill tertentu",
 ];
 
 export type Mapel = {
