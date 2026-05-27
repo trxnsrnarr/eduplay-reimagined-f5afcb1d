@@ -13,6 +13,7 @@ import { Route as RegisterRouteImport } from './routes/register'
 import { Route as LoginRouteImport } from './routes/login'
 import { Route as AuthenticatedRouteImport } from './routes/_authenticated'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as ApiMidtransWebhookRouteImport } from './routes/api/midtrans-webhook'
 import { Route as ApiAiTutorRouteImport } from './routes/api/ai-tutor'
 import { Route as AuthenticatedSubscriptionRouteImport } from './routes/_authenticated/subscription'
 import { Route as AuthenticatedSettingsRouteImport } from './routes/_authenticated/settings'
@@ -46,6 +47,11 @@ const AuthenticatedRoute = AuthenticatedRouteImport.update({
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiMidtransWebhookRoute = ApiMidtransWebhookRouteImport.update({
+  id: '/api/midtrans-webhook',
+  path: '/api/midtrans-webhook',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ApiAiTutorRoute = ApiAiTutorRouteImport.update({
@@ -147,6 +153,7 @@ export interface FileRoutesByFullPath {
   '/settings': typeof AuthenticatedSettingsRoute
   '/subscription': typeof AuthenticatedSubscriptionRoute
   '/api/ai-tutor': typeof ApiAiTutorRoute
+  '/api/midtrans-webhook': typeof ApiMidtransWebhookRoute
   '/dashboard/link-anak': typeof AuthenticatedDashboardLinkAnakRoute
   '/modul/$slug': typeof AuthenticatedModulSlugRoute
 }
@@ -167,6 +174,7 @@ export interface FileRoutesByTo {
   '/settings': typeof AuthenticatedSettingsRoute
   '/subscription': typeof AuthenticatedSubscriptionRoute
   '/api/ai-tutor': typeof ApiAiTutorRoute
+  '/api/midtrans-webhook': typeof ApiMidtransWebhookRoute
   '/dashboard/link-anak': typeof AuthenticatedDashboardLinkAnakRoute
   '/modul/$slug': typeof AuthenticatedModulSlugRoute
 }
@@ -189,6 +197,7 @@ export interface FileRoutesById {
   '/_authenticated/settings': typeof AuthenticatedSettingsRoute
   '/_authenticated/subscription': typeof AuthenticatedSubscriptionRoute
   '/api/ai-tutor': typeof ApiAiTutorRoute
+  '/api/midtrans-webhook': typeof ApiMidtransWebhookRoute
   '/_authenticated/dashboard/link-anak': typeof AuthenticatedDashboardLinkAnakRoute
   '/_authenticated/modul/$slug': typeof AuthenticatedModulSlugRoute
 }
@@ -211,6 +220,7 @@ export interface FileRouteTypes {
     | '/settings'
     | '/subscription'
     | '/api/ai-tutor'
+    | '/api/midtrans-webhook'
     | '/dashboard/link-anak'
     | '/modul/$slug'
   fileRoutesByTo: FileRoutesByTo
@@ -231,6 +241,7 @@ export interface FileRouteTypes {
     | '/settings'
     | '/subscription'
     | '/api/ai-tutor'
+    | '/api/midtrans-webhook'
     | '/dashboard/link-anak'
     | '/modul/$slug'
   id:
@@ -252,6 +263,7 @@ export interface FileRouteTypes {
     | '/_authenticated/settings'
     | '/_authenticated/subscription'
     | '/api/ai-tutor'
+    | '/api/midtrans-webhook'
     | '/_authenticated/dashboard/link-anak'
     | '/_authenticated/modul/$slug'
   fileRoutesById: FileRoutesById
@@ -262,6 +274,7 @@ export interface RootRouteChildren {
   LoginRoute: typeof LoginRoute
   RegisterRoute: typeof RegisterRoute
   ApiAiTutorRoute: typeof ApiAiTutorRoute
+  ApiMidtransWebhookRoute: typeof ApiMidtransWebhookRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -292,6 +305,13 @@ declare module '@tanstack/react-router' {
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof IndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/midtrans-webhook': {
+      id: '/api/midtrans-webhook'
+      path: '/api/midtrans-webhook'
+      fullPath: '/api/midtrans-webhook'
+      preLoaderRoute: typeof ApiMidtransWebhookRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/api/ai-tutor': {
@@ -467,7 +487,18 @@ const rootRouteChildren: RootRouteChildren = {
   LoginRoute: LoginRoute,
   RegisterRoute: RegisterRoute,
   ApiAiTutorRoute: ApiAiTutorRoute,
+  ApiMidtransWebhookRoute: ApiMidtransWebhookRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
+
+import type { getRouter } from './router.tsx'
+import type { startInstance } from './start.ts'
+declare module '@tanstack/react-start' {
+  interface Register {
+    ssr: true
+    router: Awaited<ReturnType<typeof getRouter>>
+    config: Awaited<ReturnType<typeof startInstance.getOptions>>
+  }
+}
