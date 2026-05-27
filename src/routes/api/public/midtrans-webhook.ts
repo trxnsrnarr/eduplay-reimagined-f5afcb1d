@@ -3,7 +3,7 @@ import { createHash } from "crypto";
 import { supabaseAdmin } from "@/integrations/supabase/client.server";
 
 // Midtrans signature: SHA512(order_id + status_code + gross_amount + server_key)
-export const Route = createFileRoute("/api/midtrans-webhook")({
+export const Route = createFileRoute("/api/public/midtrans-webhook")({
   server: {
     handlers: {
       POST: async ({ request }) => {
