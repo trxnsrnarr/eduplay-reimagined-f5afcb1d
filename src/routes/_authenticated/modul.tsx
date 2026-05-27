@@ -3,6 +3,7 @@ import { useState } from "react";
 import { BookOpen, Folder, Lock, Clock, Zap } from "lucide-react";
 import { getMapelForTrack, FREE_BAB_LIMIT, type Jenjang } from "@/lib/curriculum";
 import { useProfile } from "@/components/shell/profile-context";
+import { coverFor, PatternSVG } from "@/lib/mapel-cover";
 
 export const Route = createFileRoute("/_authenticated/modul")({
   head: () => ({ meta: [{ title: "Modul Belajar — Eduverse" }] }),
