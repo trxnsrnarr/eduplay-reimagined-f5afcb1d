@@ -21,6 +21,13 @@ function ModulPage() {
   const [lockedBab, setLockedBab] = useState<{ idx: number; title: string } | null>(null);
   const [jenjang, setJenjang] = useState<Jenjang | null>(null);
 
+  // Reset state & scroll-to-top setiap pindah mapel (slug berubah).
+  useEffect(() => {
+    setShowPaywall(false);
+    setLockedBab(null);
+    window.scrollTo({ top: 0, behavior: "instant" as ScrollBehavior });
+  }, [slug]);
+
   useEffect(() => {
     if (!user) return;
     supabase.from("profiles").select("jenjang").eq("id", user.id).maybeSingle().then(({ data }) => {
