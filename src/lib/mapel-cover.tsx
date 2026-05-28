@@ -43,14 +43,14 @@ export function coverFor(slugOrName: string, label?: string): MapelCover {
   const text = (label ?? slugOrName).trim();
   const words = text.split(/[\s-]+/).filter(Boolean);
   const initials = (words[0]?.[0] ?? "M") + (words[1]?.[0] ?? words[0]?.[1] ?? "");
-  const seed = encodeURIComponent(slugOrName.toLowerCase().replace(/\s+/g, "-"));
+  const img = getMapelImageWithFallback(slugOrName);
   return {
     gradient: `bg-gradient-to-br ${p.from} ${p.to}`,
     accent: p.accent,
     pattern,
     initials: initials.toUpperCase().slice(0, 2),
-    photoUrl: `https://picsum.photos/seed/eduverse-${seed}/800/500`,
-    photoUrlLg: `https://picsum.photos/seed/eduverse-${seed}/1600/700`,
+    photoUrl: img,
+    photoUrlLg: img,
   };
 }
 
