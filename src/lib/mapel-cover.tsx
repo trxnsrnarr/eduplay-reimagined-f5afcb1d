@@ -1,5 +1,9 @@
-// Visual cover (gradient + pattern) untuk mapel — pengganti emoji.
-// Deterministik berdasarkan slug.
+// Visual cover (gradient + pattern + AI illustration) untuk mapel.
+// Deterministik berdasarkan slug. Mapel populer pakai ilustrasi AI;
+// sisanya fallback ke picsum dengan seed yang sama.
+
+import { getMapelImageWithFallback } from "./mapel-images";
+
 
 const PALETTES = [
   { from: "from-violet-500", to: "to-fuchsia-500", accent: "bg-fuchsia-300/30" },
