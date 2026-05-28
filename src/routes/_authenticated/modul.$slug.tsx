@@ -51,8 +51,14 @@ function ModulPage() {
         <ArrowLeft className="w-4 h-4" /> Kembali ke daftar modul
       </Link>
 
-      <div className={`p-6 lg:p-8 rounded-3xl ${cover.gradient} text-white shadow-soft relative overflow-hidden`}>
-        <PatternSVG pattern={cover.pattern} className="absolute inset-0 w-full h-full opacity-60" />
+      <div className={`p-6 lg:p-8 rounded-3xl ${cover.gradient} text-white shadow-soft relative overflow-hidden min-h-[220px]`}>
+        <img
+          src={cover.photoUrlLg}
+          alt={mapel.name}
+          className="absolute inset-0 w-full h-full object-cover opacity-40"
+        />
+        <div className={`absolute inset-0 ${cover.gradient} mix-blend-multiply opacity-70`} />
+        <PatternSVG pattern={cover.pattern} className="absolute inset-0 w-full h-full opacity-40" />
         <div className="absolute -top-10 -right-10 w-48 h-48 bg-white/15 rounded-full blur-2xl" />
         <div className="relative">
           <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-white/20 backdrop-blur text-white font-extrabold text-2xl mb-3">

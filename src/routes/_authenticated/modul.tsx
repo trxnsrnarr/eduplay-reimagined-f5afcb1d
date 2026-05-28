@@ -48,14 +48,24 @@ function ModulListPage() {
             const cover = coverFor(m.slug, m.name);
             return (
               <Link key={m.slug} to="/modul/$slug" params={{ slug: m.slug }} className="group rounded-2xl border-2 border-border bg-white hover:border-primary hover:-translate-y-1 hover:shadow-card transition-all overflow-hidden">
-                <div className={`relative h-32 ${cover.gradient} overflow-hidden`}>
-                  <PatternSVG pattern={cover.pattern} className="absolute inset-0 w-full h-full" />
-                  <div className="absolute -bottom-6 -right-6 w-28 h-28 rounded-full bg-white/15 blur-2xl" />
-                  <div className="absolute inset-0 flex items-center justify-center">
-                    <div className="text-white font-extrabold tracking-tight text-4xl drop-shadow-sm">{cover.initials}</div>
+                <div className={`relative h-36 ${cover.gradient} overflow-hidden`}>
+                  <img
+                    src={cover.photoUrl}
+                    alt={m.name}
+                    loading="lazy"
+                    className="absolute inset-0 w-full h-full object-cover opacity-80 group-hover:scale-105 transition-transform duration-500"
+                  />
+                  <div className={`absolute inset-0 ${cover.gradient} mix-blend-multiply opacity-60`} />
+                  <PatternSVG pattern={cover.pattern} className="absolute inset-0 w-full h-full opacity-40" />
+                  <div className="absolute inset-x-0 bottom-0 h-2/3 bg-gradient-to-t from-black/70 to-transparent" />
+                  <div className="absolute top-2 left-2 inline-flex items-center justify-center w-9 h-9 rounded-xl bg-white/25 backdrop-blur text-white font-extrabold text-sm">
+                    {cover.initials}
+                  </div>
+                  <div className="absolute bottom-2 left-3 right-3 text-white font-extrabold text-sm leading-tight drop-shadow line-clamp-2">
+                    {m.name}
                   </div>
                   {lockedCount > 0 && (
-                    <span className="absolute top-2 right-2 inline-flex items-center gap-1 text-[10px] font-bold px-2 py-1 rounded-full bg-black/30 backdrop-blur text-white">
+                    <span className="absolute top-2 right-2 inline-flex items-center gap-1 text-[10px] font-bold px-2 py-1 rounded-full bg-black/50 backdrop-blur text-white">
                       <Lock className="w-3 h-3" /> {lockedCount}
                     </span>
                   )}

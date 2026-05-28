@@ -7,6 +7,7 @@ import { useMutation } from "@tanstack/react-query";
 import { toast } from "sonner";
 import { findMapelBySlug, FREE_BAB_LIMIT } from "@/lib/curriculum";
 import { completeChapter } from "@/lib/api/progression.functions";
+import { DrawingOverlay } from "@/components/learning/DrawingOverlay";
 
 export const Route = createFileRoute("/_authenticated/belajar/$mapel/$bab")({
   head: ({ params }) => ({ meta: [{ title: `Belajar ${params.mapel} — Bab ${params.bab}` }] }),
@@ -149,6 +150,7 @@ function BelajarPage() {
             )}
           </motion.div>
         </AnimatePresence>
+        <DrawingOverlay resetKey={`${babIndex}-${slideIdx}`} />
       </div>
 
       {/* Controls */}
