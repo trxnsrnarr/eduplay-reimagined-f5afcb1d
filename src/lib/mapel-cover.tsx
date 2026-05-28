@@ -45,6 +45,8 @@ export function coverFor(slugOrName: string, label?: string): MapelCover {
     accent: p.accent,
     pattern,
     initials: initials.toUpperCase().slice(0, 2),
+    photoUrl: `https://picsum.photos/seed/eduverse-${seed}/800/500`,
+    photoUrlLg: `https://picsum.photos/seed/eduverse-${seed}/1600/700`,
   };
 }
 
