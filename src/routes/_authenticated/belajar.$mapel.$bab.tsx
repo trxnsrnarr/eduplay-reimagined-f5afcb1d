@@ -150,6 +150,7 @@ function BelajarPage() {
             )}
           </motion.div>
         </AnimatePresence>
+        <DrawingOverlay resetKey={`${babIndex}-${slideIdx}`} />
       </div>
 
       {/* Controls */}
