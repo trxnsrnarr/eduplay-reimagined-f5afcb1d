@@ -24,10 +24,12 @@ function hash(str: string) {
 }
 
 export type MapelCover = {
-  gradient: string; // tailwind classes e.g. "bg-gradient-to-br from-x to-y"
+  gradient: string;
   accent: string;
   pattern: Pattern;
   initials: string;
+  photoUrl: string;
+  photoUrlLg: string;
 };
 
 export function coverFor(slugOrName: string, label?: string): MapelCover {
@@ -37,6 +39,7 @@ export function coverFor(slugOrName: string, label?: string): MapelCover {
   const text = (label ?? slugOrName).trim();
   const words = text.split(/[\s-]+/).filter(Boolean);
   const initials = (words[0]?.[0] ?? "M") + (words[1]?.[0] ?? words[0]?.[1] ?? "");
+  const seed = encodeURIComponent(slugOrName.toLowerCase().replace(/\s+/g, "-"));
   return {
     gradient: `bg-gradient-to-br ${p.from} ${p.to}`,
     accent: p.accent,
