@@ -21,9 +21,9 @@ function ModulListPage() {
   return (
     <div className="max-w-7xl mx-auto space-y-6">
       <div>
-        <h1 className="text-3xl font-extrabold flex items-center gap-2"><BookOpen className="w-7 h-7" /> Modul Belajar</h1>
+        <h1 className="text-3xl font-extrabold flex items-center gap-2"><BookOpen className="w-7 h-7" /> Mata Pelajaran</h1>
         <p className="text-sm text-muted-foreground mt-1">
-          Modul otomatis dipilih untuk {profile?.jenjang?.toUpperCase() ?? "-"}{profile?.jurusan ? ` · ${profile.jurusan}` : ""}. Bab 1–{FREE_BAB_LIMIT} gratis.
+          Mapel otomatis dipilih untuk {profile?.jenjang?.toUpperCase() ?? "-"}{profile?.jurusan ? ` · ${profile.jurusan}` : ""}. Bab 1–{FREE_BAB_LIMIT} gratis.
         </p>
       </div>
 
