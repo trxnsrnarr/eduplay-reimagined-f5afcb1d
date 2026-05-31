@@ -8,6 +8,7 @@ import { toast } from "sonner";
 import type { Profile } from "./types";
 import { getMapelForTrack, FREE_BAB_LIMIT, type Jenjang } from "@/lib/curriculum";
 import { getMyProgression } from "@/lib/api/progression.functions";
+import { coverFor, PatternSVG } from "@/lib/mapel-cover";
 
 const CHALLENGES = [
   { title: "Selesaikan 1 bab hari ini", xp: 50 },
