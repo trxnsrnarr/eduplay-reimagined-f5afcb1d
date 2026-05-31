@@ -19,6 +19,7 @@ import { Route as AuthenticatedSettingsRouteImport } from './routes/_authenticat
 import { Route as AuthenticatedProfileRouteImport } from './routes/_authenticated/profile'
 import { Route as AuthenticatedModulRouteImport } from './routes/_authenticated/modul'
 import { Route as AuthenticatedMarketplaceRouteImport } from './routes/_authenticated/marketplace'
+import { Route as AuthenticatedMapelRouteImport } from './routes/_authenticated/mapel'
 import { Route as AuthenticatedLearningPathRouteImport } from './routes/_authenticated/learning-path'
 import { Route as AuthenticatedLeaderboardRouteImport } from './routes/_authenticated/leaderboard'
 import { Route as AuthenticatedGamesRouteImport } from './routes/_authenticated/games'
@@ -31,6 +32,7 @@ import { Route as AuthenticatedAchievementRouteImport } from './routes/_authenti
 import { Route as ApiPublicMidtransWebhookRouteImport } from './routes/api/public/midtrans-webhook'
 import { Route as AuthenticatedModulSlugRouteImport } from './routes/_authenticated/modul.$slug'
 import { Route as AuthenticatedMarketplaceIdRouteImport } from './routes/_authenticated/marketplace.$id'
+import { Route as AuthenticatedMapelSlugRouteImport } from './routes/_authenticated/mapel.$slug'
 import { Route as AuthenticatedDashboardLinkAnakRouteImport } from './routes/_authenticated/dashboard.link-anak'
 import { Route as AuthenticatedClassroomIdRouteImport } from './routes/_authenticated/classroom.$id'
 import { Route as AuthenticatedBelajarMapelBabRouteImport } from './routes/_authenticated/belajar.$mapel.$bab'
@@ -86,6 +88,11 @@ const AuthenticatedMarketplaceRoute =
     path: '/marketplace',
     getParentRoute: () => AuthenticatedRoute,
   } as any)
+const AuthenticatedMapelRoute = AuthenticatedMapelRouteImport.update({
+  id: '/mapel',
+  path: '/mapel',
+  getParentRoute: () => AuthenticatedRoute,
+} as any)
 const AuthenticatedLearningPathRoute =
   AuthenticatedLearningPathRouteImport.update({
     id: '/learning-path',
@@ -152,6 +159,11 @@ const AuthenticatedMarketplaceIdRoute =
     path: '/$id',
     getParentRoute: () => AuthenticatedMarketplaceRoute,
   } as any)
+const AuthenticatedMapelSlugRoute = AuthenticatedMapelSlugRouteImport.update({
+  id: '/$slug',
+  path: '/$slug',
+  getParentRoute: () => AuthenticatedMapelRoute,
+} as any)
 const AuthenticatedDashboardLinkAnakRoute =
   AuthenticatedDashboardLinkAnakRouteImport.update({
     id: '/link-anak',
@@ -184,6 +196,7 @@ export interface FileRoutesByFullPath {
   '/games': typeof AuthenticatedGamesRoute
   '/leaderboard': typeof AuthenticatedLeaderboardRoute
   '/learning-path': typeof AuthenticatedLearningPathRoute
+  '/mapel': typeof AuthenticatedMapelRouteWithChildren
   '/marketplace': typeof AuthenticatedMarketplaceRouteWithChildren
   '/modul': typeof AuthenticatedModulRouteWithChildren
   '/profile': typeof AuthenticatedProfileRoute
@@ -192,6 +205,7 @@ export interface FileRoutesByFullPath {
   '/api/ai-tutor': typeof ApiAiTutorRoute
   '/classroom/$id': typeof AuthenticatedClassroomIdRoute
   '/dashboard/link-anak': typeof AuthenticatedDashboardLinkAnakRoute
+  '/mapel/$slug': typeof AuthenticatedMapelSlugRoute
   '/marketplace/$id': typeof AuthenticatedMarketplaceIdRoute
   '/modul/$slug': typeof AuthenticatedModulSlugRoute
   '/api/public/midtrans-webhook': typeof ApiPublicMidtransWebhookRoute
@@ -210,6 +224,7 @@ export interface FileRoutesByTo {
   '/games': typeof AuthenticatedGamesRoute
   '/leaderboard': typeof AuthenticatedLeaderboardRoute
   '/learning-path': typeof AuthenticatedLearningPathRoute
+  '/mapel': typeof AuthenticatedMapelRouteWithChildren
   '/marketplace': typeof AuthenticatedMarketplaceRouteWithChildren
   '/modul': typeof AuthenticatedModulRouteWithChildren
   '/profile': typeof AuthenticatedProfileRoute
@@ -218,6 +233,7 @@ export interface FileRoutesByTo {
   '/api/ai-tutor': typeof ApiAiTutorRoute
   '/classroom/$id': typeof AuthenticatedClassroomIdRoute
   '/dashboard/link-anak': typeof AuthenticatedDashboardLinkAnakRoute
+  '/mapel/$slug': typeof AuthenticatedMapelSlugRoute
   '/marketplace/$id': typeof AuthenticatedMarketplaceIdRoute
   '/modul/$slug': typeof AuthenticatedModulSlugRoute
   '/api/public/midtrans-webhook': typeof ApiPublicMidtransWebhookRoute
@@ -238,6 +254,7 @@ export interface FileRoutesById {
   '/_authenticated/games': typeof AuthenticatedGamesRoute
   '/_authenticated/leaderboard': typeof AuthenticatedLeaderboardRoute
   '/_authenticated/learning-path': typeof AuthenticatedLearningPathRoute
+  '/_authenticated/mapel': typeof AuthenticatedMapelRouteWithChildren
   '/_authenticated/marketplace': typeof AuthenticatedMarketplaceRouteWithChildren
   '/_authenticated/modul': typeof AuthenticatedModulRouteWithChildren
   '/_authenticated/profile': typeof AuthenticatedProfileRoute
@@ -246,6 +263,7 @@ export interface FileRoutesById {
   '/api/ai-tutor': typeof ApiAiTutorRoute
   '/_authenticated/classroom/$id': typeof AuthenticatedClassroomIdRoute
   '/_authenticated/dashboard/link-anak': typeof AuthenticatedDashboardLinkAnakRoute
+  '/_authenticated/mapel/$slug': typeof AuthenticatedMapelSlugRoute
   '/_authenticated/marketplace/$id': typeof AuthenticatedMarketplaceIdRoute
   '/_authenticated/modul/$slug': typeof AuthenticatedModulSlugRoute
   '/api/public/midtrans-webhook': typeof ApiPublicMidtransWebhookRoute
@@ -266,6 +284,7 @@ export interface FileRouteTypes {
     | '/games'
     | '/leaderboard'
     | '/learning-path'
+    | '/mapel'
     | '/marketplace'
     | '/modul'
     | '/profile'
@@ -274,6 +293,7 @@ export interface FileRouteTypes {
     | '/api/ai-tutor'
     | '/classroom/$id'
     | '/dashboard/link-anak'
+    | '/mapel/$slug'
     | '/marketplace/$id'
     | '/modul/$slug'
     | '/api/public/midtrans-webhook'
@@ -292,6 +312,7 @@ export interface FileRouteTypes {
     | '/games'
     | '/leaderboard'
     | '/learning-path'
+    | '/mapel'
     | '/marketplace'
     | '/modul'
     | '/profile'
@@ -300,6 +321,7 @@ export interface FileRouteTypes {
     | '/api/ai-tutor'
     | '/classroom/$id'
     | '/dashboard/link-anak'
+    | '/mapel/$slug'
     | '/marketplace/$id'
     | '/modul/$slug'
     | '/api/public/midtrans-webhook'
@@ -319,6 +341,7 @@ export interface FileRouteTypes {
     | '/_authenticated/games'
     | '/_authenticated/leaderboard'
     | '/_authenticated/learning-path'
+    | '/_authenticated/mapel'
     | '/_authenticated/marketplace'
     | '/_authenticated/modul'
     | '/_authenticated/profile'
@@ -327,6 +350,7 @@ export interface FileRouteTypes {
     | '/api/ai-tutor'
     | '/_authenticated/classroom/$id'
     | '/_authenticated/dashboard/link-anak'
+    | '/_authenticated/mapel/$slug'
     | '/_authenticated/marketplace/$id'
     | '/_authenticated/modul/$slug'
     | '/api/public/midtrans-webhook'
@@ -414,6 +438,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedMarketplaceRouteImport
       parentRoute: typeof AuthenticatedRoute
     }
+    '/_authenticated/mapel': {
+      id: '/_authenticated/mapel'
+      path: '/mapel'
+      fullPath: '/mapel'
+      preLoaderRoute: typeof AuthenticatedMapelRouteImport
+      parentRoute: typeof AuthenticatedRoute
+    }
     '/_authenticated/learning-path': {
       id: '/_authenticated/learning-path'
       path: '/learning-path'
@@ -498,6 +529,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedMarketplaceIdRouteImport
       parentRoute: typeof AuthenticatedMarketplaceRoute
     }
+    '/_authenticated/mapel/$slug': {
+      id: '/_authenticated/mapel/$slug'
+      path: '/$slug'
+      fullPath: '/mapel/$slug'
+      preLoaderRoute: typeof AuthenticatedMapelSlugRouteImport
+      parentRoute: typeof AuthenticatedMapelRoute
+    }
     '/_authenticated/dashboard/link-anak': {
       id: '/_authenticated/dashboard/link-anak'
       path: '/link-anak'
@@ -550,6 +588,17 @@ const AuthenticatedDashboardRouteWithChildren =
     AuthenticatedDashboardRouteChildren,
   )
 
+interface AuthenticatedMapelRouteChildren {
+  AuthenticatedMapelSlugRoute: typeof AuthenticatedMapelSlugRoute
+}
+
+const AuthenticatedMapelRouteChildren: AuthenticatedMapelRouteChildren = {
+  AuthenticatedMapelSlugRoute: AuthenticatedMapelSlugRoute,
+}
+
+const AuthenticatedMapelRouteWithChildren =
+  AuthenticatedMapelRoute._addFileChildren(AuthenticatedMapelRouteChildren)
+
 interface AuthenticatedMarketplaceRouteChildren {
   AuthenticatedMarketplaceIdRoute: typeof AuthenticatedMarketplaceIdRoute
 }
@@ -585,6 +634,7 @@ interface AuthenticatedRouteChildren {
   AuthenticatedGamesRoute: typeof AuthenticatedGamesRoute
   AuthenticatedLeaderboardRoute: typeof AuthenticatedLeaderboardRoute
   AuthenticatedLearningPathRoute: typeof AuthenticatedLearningPathRoute
+  AuthenticatedMapelRoute: typeof AuthenticatedMapelRouteWithChildren
   AuthenticatedMarketplaceRoute: typeof AuthenticatedMarketplaceRouteWithChildren
   AuthenticatedModulRoute: typeof AuthenticatedModulRouteWithChildren
   AuthenticatedProfileRoute: typeof AuthenticatedProfileRoute
@@ -603,6 +653,7 @@ const AuthenticatedRouteChildren: AuthenticatedRouteChildren = {
   AuthenticatedGamesRoute: AuthenticatedGamesRoute,
   AuthenticatedLeaderboardRoute: AuthenticatedLeaderboardRoute,
   AuthenticatedLearningPathRoute: AuthenticatedLearningPathRoute,
+  AuthenticatedMapelRoute: AuthenticatedMapelRouteWithChildren,
   AuthenticatedMarketplaceRoute: AuthenticatedMarketplaceRouteWithChildren,
   AuthenticatedModulRoute: AuthenticatedModulRouteWithChildren,
   AuthenticatedProfileRoute: AuthenticatedProfileRoute,
@@ -626,13 +677,3 @@ const rootRouteChildren: RootRouteChildren = {
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
-
-import type { getRouter } from './router.tsx'
-import type { startInstance } from './start.ts'
-declare module '@tanstack/react-start' {
-  interface Register {
-    ssr: true
-    router: Awaited<ReturnType<typeof getRouter>>
-    config: Awaited<ReturnType<typeof startInstance.getOptions>>
-  }
-}

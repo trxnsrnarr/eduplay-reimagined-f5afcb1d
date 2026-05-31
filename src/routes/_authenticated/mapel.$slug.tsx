@@ -8,7 +8,7 @@ import { findMapelBySlug, FREE_BAB_LIMIT, PRICING_BY_JENJANG, type Jenjang } fro
 import { coverFor, PatternSVG } from "@/lib/mapel-cover";
 
 export const Route = createFileRoute("/_authenticated/mapel/$slug")({
-  head: ({ params }) => ({ meta: [{ title: `Modul ${params.slug} — Eduverse` }] }),
+  head: ({ params }) => ({ meta: [{ title: `Mapel ${params.slug} — Eduverse` }] }),
   component: ModulPage,
 });
 
@@ -39,7 +39,7 @@ function ModulPage() {
     return (
       <div className="text-center py-20">
         <p className="text-muted-foreground">Modul tidak ditemukan.</p>
-        <button onClick={() => navigate({ to: "/modul" })} className="mt-4 px-5 py-2 rounded-full bg-gradient-pink text-white text-sm font-bold">Kembali</button>
+        <button onClick={() => navigate({ to: "/mapel" })} className="mt-4 px-5 py-2 rounded-full bg-gradient-pink text-white text-sm font-bold">Kembali</button>
       </div>
     );
   }
@@ -54,7 +54,7 @@ function ModulPage() {
 
   return (
     <div className="max-w-4xl mx-auto">
-      <Link to="/modul" className="inline-flex items-center gap-2 text-sm font-semibold text-muted-foreground hover:text-foreground mb-4">
+      <Link to="/mapel" className="inline-flex items-center gap-2 text-sm font-semibold text-muted-foreground hover:text-foreground mb-4">
         <ArrowLeft className="w-4 h-4" /> Kembali ke daftar modul
       </Link>
 

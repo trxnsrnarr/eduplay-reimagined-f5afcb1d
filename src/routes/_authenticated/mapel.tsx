@@ -6,7 +6,7 @@ import { useProfile } from "@/components/shell/profile-context";
 import { coverFor, PatternSVG } from "@/lib/mapel-cover";
 
 export const Route = createFileRoute("/_authenticated/mapel")({
-  head: () => ({ meta: [{ title: "Modul Belajar — Eduverse" }] }),
+  head: () => ({ meta: [{ title: "Mapel — Eduverse" }] }),
   component: ModulListPage,
 });
 
@@ -47,7 +47,7 @@ function ModulListPage() {
             const lockedCount = Math.max(0, m.bab.length - FREE_BAB_LIMIT);
             const cover = coverFor(m.slug, m.name);
             return (
-              <Link key={m.slug} to="/modul/$slug" params={{ slug: m.slug }} className="group rounded-2xl border-2 border-border bg-white hover:border-primary hover:-translate-y-1 hover:shadow-card transition-all overflow-hidden">
+              <Link key={m.slug} to="/mapel/$slug" params={{ slug: m.slug }} className="group rounded-2xl border-2 border-border bg-white hover:border-primary hover:-translate-y-1 hover:shadow-card transition-all overflow-hidden">
                 <div className={`relative h-36 ${cover.gradient} overflow-hidden`}>
                   <img
                     src={cover.photoUrl}
