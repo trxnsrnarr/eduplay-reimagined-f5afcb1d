@@ -180,16 +180,26 @@ export function SiswaDashboard({ profile }: { profile: Profile }) {
               <div className="grid sm:grid-cols-2 gap-3">
                 {mapelList.slice(0, 6).map((m) => {
                   const lockedCount = Math.max(0, m.bab.length - FREE_BAB_LIMIT);
+                  const cover = coverFor(m.slug, m.name);
                   return (
-                    <Link key={m.slug} to="/mapel/$slug" params={{ slug: m.slug }} className="group p-4 rounded-2xl border-2 border-border bg-card hover:border-primary hover:-translate-y-0.5 transition-all">
-                      <div className="flex items-start justify-between mb-2">
-                        <div className={`w-11 h-11 rounded-xl ${m.color} grid place-items-center text-xl shadow-soft`}>{m.emoji}</div>
-                        {lockedCount > 0 && <span className="inline-flex items-center gap-1 text-[10px] font-bold px-2 py-0.5 rounded-full bg-muted text-muted-foreground"><Lock className="w-3 h-3" /> {lockedCount}</span>}
+                    <Link key={m.slug} to="/mapel/$slug" params={{ slug: m.slug }} className="group rounded-2xl border-2 border-border bg-card hover:border-primary hover:-translate-y-0.5 transition-all overflow-hidden">
+                      <div className={`relative h-24 ${cover.gradient} overflow-hidden`}>
+                        <img src={cover.photoUrl} alt={m.name} loading="lazy" className="absolute inset-0 w-full h-full object-cover opacity-80 group-hover:scale-105 transition-transform duration-500" />
+                        <div className={`absolute inset-0 ${cover.gradient} mix-blend-multiply opacity-60`} />
+                        <PatternSVG pattern={cover.pattern} className="absolute inset-0 w-full h-full opacity-30" />
+                        <div className="absolute inset-x-0 bottom-0 h-2/3 bg-gradient-to-t from-black/70 to-transparent" />
+                        {lockedCount > 0 && (
+                          <span className="absolute top-2 right-2 inline-flex items-center gap-1 text-[10px] font-bold px-2 py-0.5 rounded-full bg-black/50 backdrop-blur text-white">
+                            <Lock className="w-3 h-3" /> {lockedCount}
+                          </span>
+                        )}
                       </div>
-                      <div className="font-extrabold text-sm">{m.name}</div>
-                      <div className="text-[10px] text-muted-foreground mt-1 flex items-center gap-2">
-                        <span className="inline-flex items-center gap-0.5"><Clock className="w-3 h-3" /> {m.estMinutes}m</span>
-                        <span>·</span><span>+{m.xpPerBab} XP</span>
+                      <div className="p-3">
+                        <div className="font-extrabold text-sm line-clamp-1">{m.name}</div>
+                        <div className="text-[10px] text-muted-foreground mt-1 flex items-center gap-2">
+                          <span className="inline-flex items-center gap-0.5"><Clock className="w-3 h-3" /> {m.estMinutes}m</span>
+                          <span>·</span><span>+{m.xpPerBab} XP</span>
+                        </div>
                       </div>
                     </Link>
                   );
