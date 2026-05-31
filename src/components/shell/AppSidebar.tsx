@@ -3,7 +3,7 @@ import { Sparkles, LayoutDashboard, BookOpen, Bot, Swords, Gamepad2, Target, Tro
 
 const items = [
   { to: "/dashboard", label: "Dashboard", icon: LayoutDashboard },
-  { to: "/modul", label: "Modul Belajar", icon: BookOpen },
+  { to: "/mapel", label: "Modul Belajar", icon: BookOpen },
   { to: "/classroom", label: "Classroom", icon: Users, badge: "NEW" },
   { to: "/marketplace", label: "Creator Class", icon: ShoppingBag, badge: "HOT" },
   { to: "/ai-tutor", label: "AI Tutor", icon: Bot, badge: "AI" },

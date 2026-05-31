@@ -65,7 +65,7 @@ export function SiswaDashboard({ profile }: { profile: Profile }) {
               </div>
             </div>
             <div className="mt-5 flex flex-wrap gap-2">
-              <Link to="/modul" className="px-4 py-2 rounded-full bg-white text-foreground text-sm font-bold inline-flex items-center gap-1.5">
+              <Link to="/mapel" className="px-4 py-2 rounded-full bg-white text-foreground text-sm font-bold inline-flex items-center gap-1.5">
                 <BookOpen className="w-4 h-4" /> Mulai Belajar
               </Link>
               <Link to="/classroom" className="px-4 py-2 rounded-full bg-white/20 text-white text-sm font-bold inline-flex items-center gap-1.5">
@@ -125,7 +125,7 @@ export function SiswaDashboard({ profile }: { profile: Profile }) {
       <div className="p-6 rounded-3xl bg-white border border-border">
         <div className="flex items-center justify-between mb-4">
           <h2 className="font-extrabold text-lg flex items-center gap-2"><PlayCircle className="w-5 h-5" /> Lanjutkan Belajar</h2>
-          <Link to="/modul" className="text-xs font-bold text-primary inline-flex items-center gap-1">Lihat semua <ChevronRight className="w-3 h-3" /></Link>
+          <Link to="/mapel" className="text-xs font-bold text-primary inline-flex items-center gap-1">Lihat semua <ChevronRight className="w-3 h-3" /></Link>
         </div>
         {continueLearning.length === 0 ? (
           <div className="p-6 rounded-2xl bg-muted/40 text-center text-sm text-muted-foreground">
@@ -138,7 +138,7 @@ export function SiswaDashboard({ profile }: { profile: Profile }) {
               const pct = Math.min(100, Math.round((done / Math.max(1, m.bab.length)) * 100));
               return (
                 <motion.div key={m.slug} initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.05 * idx }}>
-                  <Link to="/modul/$slug" params={{ slug: m.slug }}
+                  <Link to="/mapel/$slug" params={{ slug: m.slug }}
                     className="group block p-4 rounded-2xl border-2 border-border hover:border-primary hover:-translate-y-1 hover:shadow-card transition-all">
                     <div className="flex items-center gap-3">
                       <div className={`w-12 h-12 rounded-2xl ${m.color} grid place-items-center text-2xl shadow-soft`}>{m.emoji}</div>
@@ -178,7 +178,7 @@ export function SiswaDashboard({ profile }: { profile: Profile }) {
                 {mapelList.slice(0, 6).map((m) => {
                   const lockedCount = Math.max(0, m.bab.length - FREE_BAB_LIMIT);
                   return (
-                    <Link key={m.slug} to="/modul/$slug" params={{ slug: m.slug }} className="group p-4 rounded-2xl border-2 border-border bg-card hover:border-primary hover:-translate-y-0.5 transition-all">
+                    <Link key={m.slug} to="/mapel/$slug" params={{ slug: m.slug }} className="group p-4 rounded-2xl border-2 border-border bg-card hover:border-primary hover:-translate-y-0.5 transition-all">
                       <div className="flex items-start justify-between mb-2">
                         <div className={`w-11 h-11 rounded-xl ${m.color} grid place-items-center text-xl shadow-soft`}>{m.emoji}</div>
                         {lockedCount > 0 && <span className="inline-flex items-center gap-1 text-[10px] font-bold px-2 py-0.5 rounded-full bg-muted text-muted-foreground"><Lock className="w-3 h-3" /> {lockedCount}</span>}
