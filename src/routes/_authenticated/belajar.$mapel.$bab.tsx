@@ -55,7 +55,7 @@ function BelajarPage() {
     return (
       <div className="text-center py-20">
         <p className="text-muted-foreground">Bab tidak ditemukan.</p>
-        <button onClick={() => navigate({ to: "/modul" })} className="mt-4 px-5 py-2 rounded-full bg-gradient-pink text-white text-sm font-bold">Kembali</button>
+        <button onClick={() => navigate({ to: "/mapel" })} className="mt-4 px-5 py-2 rounded-full bg-gradient-pink text-white text-sm font-bold">Kembali</button>
       </div>
     );
   }
@@ -93,7 +93,7 @@ function BelajarPage() {
 
   return (
     <div className="max-w-4xl mx-auto">
-      <Link to="/modul/$slug" params={{ slug: mapelSlug }} className="inline-flex items-center gap-2 text-sm font-semibold text-muted-foreground hover:text-foreground mb-4">
+      <Link to="/mapel/$slug" params={{ slug: mapelSlug }} className="inline-flex items-center gap-2 text-sm font-semibold text-muted-foreground hover:text-foreground mb-4">
         <ArrowLeft className="w-4 h-4" /> Kembali ke modul
       </Link>
 
@@ -169,7 +169,7 @@ function BelajarPage() {
             Lanjut <ArrowRight className="w-4 h-4" />
           </button>
         ) : (
-          <Link to="/modul/$slug" params={{ slug: mapelSlug }} className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-gradient-brand text-white text-sm font-bold">
+          <Link to="/mapel/$slug" params={{ slug: mapelSlug }} className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-gradient-brand text-white text-sm font-bold">
             Selesai <Trophy className="w-4 h-4" />
           </Link>
         )}

@@ -8,6 +8,7 @@ import { toast } from "sonner";
 import type { Profile } from "./types";
 import { getMapelForTrack, FREE_BAB_LIMIT, type Jenjang } from "@/lib/curriculum";
 import { getMyProgression } from "@/lib/api/progression.functions";
+import { coverFor, PatternSVG } from "@/lib/mapel-cover";
 
 const CHALLENGES = [
   { title: "Selesaikan 1 bab hari ini", xp: 50 },
@@ -65,7 +66,7 @@ export function SiswaDashboard({ profile }: { profile: Profile }) {
               </div>
             </div>
             <div className="mt-5 flex flex-wrap gap-2">
-              <Link to="/modul" className="px-4 py-2 rounded-full bg-white text-foreground text-sm font-bold inline-flex items-center gap-1.5">
+              <Link to="/mapel" className="px-4 py-2 rounded-full bg-white text-foreground text-sm font-bold inline-flex items-center gap-1.5">
                 <BookOpen className="w-4 h-4" /> Mulai Belajar
               </Link>
               <Link to="/classroom" className="px-4 py-2 rounded-full bg-white/20 text-white text-sm font-bold inline-flex items-center gap-1.5">
@@ -125,7 +126,7 @@ export function SiswaDashboard({ profile }: { profile: Profile }) {
       <div className="p-6 rounded-3xl bg-white border border-border">
         <div className="flex items-center justify-between mb-4">
           <h2 className="font-extrabold text-lg flex items-center gap-2"><PlayCircle className="w-5 h-5" /> Lanjutkan Belajar</h2>
-          <Link to="/modul" className="text-xs font-bold text-primary inline-flex items-center gap-1">Lihat semua <ChevronRight className="w-3 h-3" /></Link>
+          <Link to="/mapel" className="text-xs font-bold text-primary inline-flex items-center gap-1">Lihat semua <ChevronRight className="w-3 h-3" /></Link>
         </div>
         {continueLearning.length === 0 ? (
           <div className="p-6 rounded-2xl bg-muted/40 text-center text-sm text-muted-foreground">
@@ -136,18 +137,20 @@ export function SiswaDashboard({ profile }: { profile: Profile }) {
             {continueLearning.map((m, idx) => {
               const done = completionsByMapel.get(m.slug) ?? 0;
               const pct = Math.min(100, Math.round((done / Math.max(1, m.bab.length)) * 100));
+              const cover = coverFor(m.slug, m.name);
               return (
                 <motion.div key={m.slug} initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.05 * idx }}>
-                  <Link to="/modul/$slug" params={{ slug: m.slug }}
-                    className="group block p-4 rounded-2xl border-2 border-border hover:border-primary hover:-translate-y-1 hover:shadow-card transition-all">
-                    <div className="flex items-center gap-3">
-                      <div className={`w-12 h-12 rounded-2xl ${m.color} grid place-items-center text-2xl shadow-soft`}>{m.emoji}</div>
-                      <div className="flex-1 min-w-0">
-                        <div className="font-extrabold text-sm truncate">{m.name}</div>
-                        <div className="text-[11px] text-muted-foreground">{done}/{m.bab.length} bab · {m.difficulty}</div>
-                      </div>
+                  <Link to="/mapel/$slug" params={{ slug: m.slug }}
+                    className="group block rounded-2xl border-2 border-border hover:border-primary hover:-translate-y-1 hover:shadow-card transition-all overflow-hidden bg-white">
+                    <div className={`relative h-28 ${cover.gradient} overflow-hidden`}>
+                      <img src={cover.photoUrl} alt={m.name} loading="lazy" className="absolute inset-0 w-full h-full object-cover opacity-80 group-hover:scale-105 transition-transform duration-500" />
+                      <div className={`absolute inset-0 ${cover.gradient} mix-blend-multiply opacity-60`} />
+                      <PatternSVG pattern={cover.pattern} className="absolute inset-0 w-full h-full opacity-30" />
+                      <div className="absolute inset-x-0 bottom-0 h-2/3 bg-gradient-to-t from-black/70 to-transparent" />
+                      <div className="absolute bottom-2 left-3 right-3 text-white font-extrabold text-sm leading-tight drop-shadow line-clamp-2">{m.name}</div>
                     </div>
-                    <div className="mt-3">
+                    <div className="p-3">
+                      <div className="text-[11px] text-muted-foreground mb-1.5">{done}/{m.bab.length} bab · {m.difficulty}</div>
                       <div className="flex items-center justify-between text-[10px] font-bold mb-1">
                         <span className="text-muted-foreground">Progress</span><span>{pct}%</span>
                       </div>
@@ -177,16 +180,26 @@ export function SiswaDashboard({ profile }: { profile: Profile }) {
               <div className="grid sm:grid-cols-2 gap-3">
                 {mapelList.slice(0, 6).map((m) => {
                   const lockedCount = Math.max(0, m.bab.length - FREE_BAB_LIMIT);
+                  const cover = coverFor(m.slug, m.name);
                   return (
-                    <Link key={m.slug} to="/modul/$slug" params={{ slug: m.slug }} className="group p-4 rounded-2xl border-2 border-border bg-card hover:border-primary hover:-translate-y-0.5 transition-all">
-                      <div className="flex items-start justify-between mb-2">
-                        <div className={`w-11 h-11 rounded-xl ${m.color} grid place-items-center text-xl shadow-soft`}>{m.emoji}</div>
-                        {lockedCount > 0 && <span className="inline-flex items-center gap-1 text-[10px] font-bold px-2 py-0.5 rounded-full bg-muted text-muted-foreground"><Lock className="w-3 h-3" /> {lockedCount}</span>}
+                    <Link key={m.slug} to="/mapel/$slug" params={{ slug: m.slug }} className="group rounded-2xl border-2 border-border bg-card hover:border-primary hover:-translate-y-0.5 transition-all overflow-hidden">
+                      <div className={`relative h-24 ${cover.gradient} overflow-hidden`}>
+                        <img src={cover.photoUrl} alt={m.name} loading="lazy" className="absolute inset-0 w-full h-full object-cover opacity-80 group-hover:scale-105 transition-transform duration-500" />
+                        <div className={`absolute inset-0 ${cover.gradient} mix-blend-multiply opacity-60`} />
+                        <PatternSVG pattern={cover.pattern} className="absolute inset-0 w-full h-full opacity-30" />
+                        <div className="absolute inset-x-0 bottom-0 h-2/3 bg-gradient-to-t from-black/70 to-transparent" />
+                        {lockedCount > 0 && (
+                          <span className="absolute top-2 right-2 inline-flex items-center gap-1 text-[10px] font-bold px-2 py-0.5 rounded-full bg-black/50 backdrop-blur text-white">
+                            <Lock className="w-3 h-3" /> {lockedCount}
+                          </span>
+                        )}
                       </div>
-                      <div className="font-extrabold text-sm">{m.name}</div>
-                      <div className="text-[10px] text-muted-foreground mt-1 flex items-center gap-2">
-                        <span className="inline-flex items-center gap-0.5"><Clock className="w-3 h-3" /> {m.estMinutes}m</span>
-                        <span>·</span><span>+{m.xpPerBab} XP</span>
+                      <div className="p-3">
+                        <div className="font-extrabold text-sm line-clamp-1">{m.name}</div>
+                        <div className="text-[10px] text-muted-foreground mt-1 flex items-center gap-2">
+                          <span className="inline-flex items-center gap-0.5"><Clock className="w-3 h-3" /> {m.estMinutes}m</span>
+                          <span>·</span><span>+{m.xpPerBab} XP</span>
+                        </div>
                       </div>
                     </Link>
                   );

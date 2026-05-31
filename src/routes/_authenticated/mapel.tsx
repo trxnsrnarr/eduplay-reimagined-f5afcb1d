@@ -5,8 +5,8 @@ import { getMapelForTrack, FREE_BAB_LIMIT, type Jenjang } from "@/lib/curriculum
 import { useProfile } from "@/components/shell/profile-context";
 import { coverFor, PatternSVG } from "@/lib/mapel-cover";
 
-export const Route = createFileRoute("/_authenticated/modul")({
-  head: () => ({ meta: [{ title: "Modul Belajar — Eduverse" }] }),
+export const Route = createFileRoute("/_authenticated/mapel")({
+  head: () => ({ meta: [{ title: "Mapel — Eduverse" }] }),
   component: ModulListPage,
 });
 
@@ -21,9 +21,9 @@ function ModulListPage() {
   return (
     <div className="max-w-7xl mx-auto space-y-6">
       <div>
-        <h1 className="text-3xl font-extrabold flex items-center gap-2"><BookOpen className="w-7 h-7" /> Modul Belajar</h1>
+        <h1 className="text-3xl font-extrabold flex items-center gap-2"><BookOpen className="w-7 h-7" /> Mata Pelajaran</h1>
         <p className="text-sm text-muted-foreground mt-1">
-          Modul otomatis dipilih untuk {profile?.jenjang?.toUpperCase() ?? "-"}{profile?.jurusan ? ` · ${profile.jurusan}` : ""}. Bab 1–{FREE_BAB_LIMIT} gratis.
+          Mapel otomatis dipilih untuk {profile?.jenjang?.toUpperCase() ?? "-"}{profile?.jurusan ? ` · ${profile.jurusan}` : ""}. Bab 1–{FREE_BAB_LIMIT} gratis.
         </p>
       </div>
 
@@ -47,7 +47,7 @@ function ModulListPage() {
             const lockedCount = Math.max(0, m.bab.length - FREE_BAB_LIMIT);
             const cover = coverFor(m.slug, m.name);
             return (
-              <Link key={m.slug} to="/modul/$slug" params={{ slug: m.slug }} className="group rounded-2xl border-2 border-border bg-white hover:border-primary hover:-translate-y-1 hover:shadow-card transition-all overflow-hidden">
+              <Link key={m.slug} to="/mapel/$slug" params={{ slug: m.slug }} className="group rounded-2xl border-2 border-border bg-white hover:border-primary hover:-translate-y-1 hover:shadow-card transition-all overflow-hidden">
                 <div className={`relative h-36 ${cover.gradient} overflow-hidden`}>
                   <img
                     src={cover.photoUrl}
