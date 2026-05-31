@@ -137,18 +137,20 @@ export function SiswaDashboard({ profile }: { profile: Profile }) {
             {continueLearning.map((m, idx) => {
               const done = completionsByMapel.get(m.slug) ?? 0;
               const pct = Math.min(100, Math.round((done / Math.max(1, m.bab.length)) * 100));
+              const cover = coverFor(m.slug, m.name);
               return (
                 <motion.div key={m.slug} initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.05 * idx }}>
                   <Link to="/mapel/$slug" params={{ slug: m.slug }}
-                    className="group block p-4 rounded-2xl border-2 border-border hover:border-primary hover:-translate-y-1 hover:shadow-card transition-all">
-                    <div className="flex items-center gap-3">
-                      <div className={`w-12 h-12 rounded-2xl ${m.color} grid place-items-center text-2xl shadow-soft`}>{m.emoji}</div>
-                      <div className="flex-1 min-w-0">
-                        <div className="font-extrabold text-sm truncate">{m.name}</div>
-                        <div className="text-[11px] text-muted-foreground">{done}/{m.bab.length} bab · {m.difficulty}</div>
-                      </div>
+                    className="group block rounded-2xl border-2 border-border hover:border-primary hover:-translate-y-1 hover:shadow-card transition-all overflow-hidden bg-white">
+                    <div className={`relative h-28 ${cover.gradient} overflow-hidden`}>
+                      <img src={cover.photoUrl} alt={m.name} loading="lazy" className="absolute inset-0 w-full h-full object-cover opacity-80 group-hover:scale-105 transition-transform duration-500" />
+                      <div className={`absolute inset-0 ${cover.gradient} mix-blend-multiply opacity-60`} />
+                      <PatternSVG pattern={cover.pattern} className="absolute inset-0 w-full h-full opacity-30" />
+                      <div className="absolute inset-x-0 bottom-0 h-2/3 bg-gradient-to-t from-black/70 to-transparent" />
+                      <div className="absolute bottom-2 left-3 right-3 text-white font-extrabold text-sm leading-tight drop-shadow line-clamp-2">{m.name}</div>
                     </div>
-                    <div className="mt-3">
+                    <div className="p-3">
+                      <div className="text-[11px] text-muted-foreground mb-1.5">{done}/{m.bab.length} bab · {m.difficulty}</div>
                       <div className="flex items-center justify-between text-[10px] font-bold mb-1">
                         <span className="text-muted-foreground">Progress</span><span>{pct}%</span>
                       </div>
