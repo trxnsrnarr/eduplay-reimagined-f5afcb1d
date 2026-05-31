@@ -13,6 +13,20 @@ import cloud from "@/assets/mapel/cloud.jpg";
 import ai from "@/assets/mapel/ai.jpg";
 import cyber from "@/assets/mapel/cyber.jpg";
 import jaringan from "@/assets/mapel/jaringan.jpg";
+import ipa from "@/assets/mapel/ipa.jpg";
+import ips from "@/assets/mapel/ips.jpg";
+import sejarah from "@/assets/mapel/sejarah.jpg";
+import ekonomi from "@/assets/mapel/ekonomi.jpg";
+import geografi from "@/assets/mapel/geografi.jpg";
+import sosiologi from "@/assets/mapel/sosiologi.jpg";
+import pemrograman from "@/assets/mapel/pemrograman.jpg";
+import mobileDev from "@/assets/mapel/mobile-dev.jpg";
+import database from "@/assets/mapel/database.jpg";
+import uiux from "@/assets/mapel/uiux.jpg";
+import iot from "@/assets/mapel/iot.jpg";
+import linuxServer from "@/assets/mapel/linux-server.jpg";
+import seni from "@/assets/mapel/seni.jpg";
+import olahraga from "@/assets/mapel/olahraga.jpg";
 
 // Map slug exact → image. Slug yang mirip (mis. mtk-sd, mtk-smp, mtk-wajib)
 // di-route via prefix/keyword di getMapelImage().
@@ -45,7 +59,28 @@ const EXACT: Record<string, string> = {
   "mtk-wajib": matematika,
   "mtk-peminatan": matematika,
   "mtk-dasar": matematika,
+  "ipa-sd": ipa,
+  "ipa-smp": ipa,
+  "ips-sd": ips,
+  "ips-smp": ips,
+  "sejarah": sejarah,
+  "ekonomi": ekonomi,
+  "geografi": geografi,
+  "sosiologi": sosiologi,
+  "pemrograman": pemrograman,
+  "info-smp": pemrograman,
+  "mobile-dev": mobileDev,
+  "database": database,
+  "uiux": uiux,
+  "iot": iot,
+  "linux-server": linuxServer,
+  "admin-sys": linuxServer,
+  "sbk-sd": seni,
+  "sbk-sma": seni,
+  "pjok-sd": olahraga,
+  "pjok-sma": olahraga,
 };
+
 
 // Prefix → image (untuk grup besar mis. semua sija-* atau rpl-*).
 const PREFIX: Array<[string, string]> = [
