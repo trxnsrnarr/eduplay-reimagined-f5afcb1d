@@ -14,6 +14,7 @@ import { Route as LoginRouteImport } from './routes/login'
 import { Route as AuthenticatedRouteImport } from './routes/_authenticated'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as ApiAiTutorRouteImport } from './routes/api/ai-tutor'
+import { Route as AuthenticatedTransactionsRouteImport } from './routes/_authenticated/transactions'
 import { Route as AuthenticatedSubscriptionRouteImport } from './routes/_authenticated/subscription'
 import { Route as AuthenticatedSettingsRouteImport } from './routes/_authenticated/settings'
 import { Route as AuthenticatedProfileRouteImport } from './routes/_authenticated/profile'
@@ -59,6 +60,12 @@ const ApiAiTutorRoute = ApiAiTutorRouteImport.update({
   path: '/api/ai-tutor',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AuthenticatedTransactionsRoute =
+  AuthenticatedTransactionsRouteImport.update({
+    id: '/transactions',
+    path: '/transactions',
+    getParentRoute: () => AuthenticatedRoute,
+  } as any)
 const AuthenticatedSubscriptionRoute =
   AuthenticatedSubscriptionRouteImport.update({
     id: '/subscription',
@@ -189,6 +196,7 @@ export interface FileRoutesByFullPath {
   '/profile': typeof AuthenticatedProfileRoute
   '/settings': typeof AuthenticatedSettingsRoute
   '/subscription': typeof AuthenticatedSubscriptionRoute
+  '/transactions': typeof AuthenticatedTransactionsRoute
   '/api/ai-tutor': typeof ApiAiTutorRoute
   '/classroom/$id': typeof AuthenticatedClassroomIdRoute
   '/dashboard/link-anak': typeof AuthenticatedDashboardLinkAnakRoute
@@ -215,6 +223,7 @@ export interface FileRoutesByTo {
   '/profile': typeof AuthenticatedProfileRoute
   '/settings': typeof AuthenticatedSettingsRoute
   '/subscription': typeof AuthenticatedSubscriptionRoute
+  '/transactions': typeof AuthenticatedTransactionsRoute
   '/api/ai-tutor': typeof ApiAiTutorRoute
   '/classroom/$id': typeof AuthenticatedClassroomIdRoute
   '/dashboard/link-anak': typeof AuthenticatedDashboardLinkAnakRoute
@@ -243,6 +252,7 @@ export interface FileRoutesById {
   '/_authenticated/profile': typeof AuthenticatedProfileRoute
   '/_authenticated/settings': typeof AuthenticatedSettingsRoute
   '/_authenticated/subscription': typeof AuthenticatedSubscriptionRoute
+  '/_authenticated/transactions': typeof AuthenticatedTransactionsRoute
   '/api/ai-tutor': typeof ApiAiTutorRoute
   '/_authenticated/classroom/$id': typeof AuthenticatedClassroomIdRoute
   '/_authenticated/dashboard/link-anak': typeof AuthenticatedDashboardLinkAnakRoute
@@ -271,6 +281,7 @@ export interface FileRouteTypes {
     | '/profile'
     | '/settings'
     | '/subscription'
+    | '/transactions'
     | '/api/ai-tutor'
     | '/classroom/$id'
     | '/dashboard/link-anak'
@@ -297,6 +308,7 @@ export interface FileRouteTypes {
     | '/profile'
     | '/settings'
     | '/subscription'
+    | '/transactions'
     | '/api/ai-tutor'
     | '/classroom/$id'
     | '/dashboard/link-anak'
@@ -324,6 +336,7 @@ export interface FileRouteTypes {
     | '/_authenticated/profile'
     | '/_authenticated/settings'
     | '/_authenticated/subscription'
+    | '/_authenticated/transactions'
     | '/api/ai-tutor'
     | '/_authenticated/classroom/$id'
     | '/_authenticated/dashboard/link-anak'
@@ -378,6 +391,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/api/ai-tutor'
       preLoaderRoute: typeof ApiAiTutorRouteImport
       parentRoute: typeof rootRouteImport
+    }
+    '/_authenticated/transactions': {
+      id: '/_authenticated/transactions'
+      path: '/transactions'
+      fullPath: '/transactions'
+      preLoaderRoute: typeof AuthenticatedTransactionsRouteImport
+      parentRoute: typeof AuthenticatedRoute
     }
     '/_authenticated/subscription': {
       id: '/_authenticated/subscription'
@@ -590,6 +610,7 @@ interface AuthenticatedRouteChildren {
   AuthenticatedProfileRoute: typeof AuthenticatedProfileRoute
   AuthenticatedSettingsRoute: typeof AuthenticatedSettingsRoute
   AuthenticatedSubscriptionRoute: typeof AuthenticatedSubscriptionRoute
+  AuthenticatedTransactionsRoute: typeof AuthenticatedTransactionsRoute
   AuthenticatedBelajarMapelBabRoute: typeof AuthenticatedBelajarMapelBabRoute
 }
 
@@ -608,6 +629,7 @@ const AuthenticatedRouteChildren: AuthenticatedRouteChildren = {
   AuthenticatedProfileRoute: AuthenticatedProfileRoute,
   AuthenticatedSettingsRoute: AuthenticatedSettingsRoute,
   AuthenticatedSubscriptionRoute: AuthenticatedSubscriptionRoute,
+  AuthenticatedTransactionsRoute: AuthenticatedTransactionsRoute,
   AuthenticatedBelajarMapelBabRoute: AuthenticatedBelajarMapelBabRoute,
 }
 
