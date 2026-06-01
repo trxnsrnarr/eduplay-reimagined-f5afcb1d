@@ -1,8 +1,11 @@
 import { useState, useRef, useEffect } from "react";
 import { Link, useNavigate } from "@tanstack/react-router";
-import { Menu, Bell, Search, Crown, Moon, Sun, User, Settings, LogOut, HelpCircle, Languages, Award, Sparkles } from "lucide-react";
+import { useServerFn } from "@tanstack/react-start";
+import { useQuery } from "@tanstack/react-query";
+import { Menu, Bell, Search, Crown, Moon, Sun, User, Settings, LogOut, HelpCircle, Languages, Award, Receipt } from "lucide-react";
 import { toast } from "sonner";
 import { supabase } from "@/integrations/supabase/client";
+import { getMySubscription } from "@/lib/api/payment.functions";
 import type { Profile } from "@/components/dashboard/types";
 
 const notifications = [
@@ -43,6 +46,9 @@ export function TopNav({ profile, onOpenSidebar }: { profile: Profile | null; on
 
   const unread = notifications.filter((n) => n.unread).length;
   const initial = profile?.display_name?.[0]?.toUpperCase() ?? "U";
+  const subFn = useServerFn(getMySubscription);
+  const sub = useQuery({ queryKey: ["subscription"], queryFn: () => subFn(), enabled: !!profile, refetchInterval: 30_000 });
+  const isPremium = sub.data?.isPremium ?? false;
 
   return (
     <header className="sticky top-0 z-30 bg-white/80 backdrop-blur border-b border-border">
@@ -60,8 +66,8 @@ export function TopNav({ profile, onOpenSidebar }: { profile: Profile | null; on
         <div className="flex-1 md:hidden" />
 
         <div className="flex items-center gap-2">
-          <Link to="/subscription" className="hidden sm:inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-gradient-pink text-white text-xs font-extrabold">
-            <Crown className="w-3.5 h-3.5" /> FREE
+          <Link to={isPremium ? "/transactions" : "/subscription"} className={`hidden sm:inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-white text-xs font-extrabold ${isPremium ? "bg-gradient-brand" : "bg-gradient-pink"}`}>
+            <Crown className="w-3.5 h-3.5" /> {isPremium ? "PREMIUM" : "FREE"}
           </Link>
 
           <button onClick={toggleDark} className="p-2 rounded-lg hover:bg-muted" aria-label="Toggle theme">
@@ -116,7 +122,7 @@ export function TopNav({ profile, onOpenSidebar }: { profile: Profile | null; on
                   </div>
                   <div className="mt-3 flex items-center justify-between text-[10px] font-bold">
                     <span className="text-muted-foreground">XP 0 / 100</span>
-                    <span className="text-primary">FREE PLAN</span>
+                    <span className={isPremium ? "text-success" : "text-primary"}>{isPremium ? "PREMIUM" : "FREE PLAN"}</span>
                   </div>
                   <div className="mt-1 h-1.5 rounded-full bg-white overflow-hidden">
                     <div className="h-full w-0 bg-gradient-brand" />
@@ -126,6 +132,7 @@ export function TopNav({ profile, onOpenSidebar }: { profile: Profile | null; on
                   <MenuItem to="/profile" icon={User} label="Edit Profile" />
                   <MenuItem to="/achievement" icon={Award} label="Achievement" />
                   <MenuItem to="/subscription" icon={Crown} label="Subscription" />
+                  <MenuItem to="/transactions" icon={Receipt} label="Riwayat Transaksi" />
                   <MenuItem to="/settings" icon={Settings} label="Settings" />
                   <MenuItem to="/settings" icon={Languages} label="Bahasa: ID" />
                   <MenuItem to="/" icon={HelpCircle} label="Help Center" />
