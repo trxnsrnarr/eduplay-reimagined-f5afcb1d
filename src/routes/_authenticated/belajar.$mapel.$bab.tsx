@@ -1,34 +1,110 @@
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { useEffect, useMemo, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { ArrowLeft, ArrowRight, ArrowLeft as PrevIcon, Sparkles, Zap, Trophy, Lightbulb, Target, BookOpen, CheckCircle2 } from "lucide-react";
+import { ArrowLeft, ArrowRight, ArrowLeft as PrevIcon, Sparkles, Zap, Trophy, Lightbulb, Target, BookOpen, CheckCircle2, Quote } from "lucide-react";
 import { useServerFn } from "@tanstack/react-start";
 import { useMutation } from "@tanstack/react-query";
 import { toast } from "sonner";
 import { findMapelBySlug, FREE_BAB_LIMIT } from "@/lib/curriculum";
 import { completeChapter } from "@/lib/api/progression.functions";
 import { DrawingOverlay } from "@/components/learning/DrawingOverlay";
+import { coverFor, PatternSVG } from "@/lib/mapel-cover";
 
 export const Route = createFileRoute("/_authenticated/belajar/$mapel/$bab")({
   head: ({ params }) => ({ meta: [{ title: `Belajar ${params.mapel} — Bab ${params.bab}` }] }),
   component: BelajarPage,
 });
 
-type Slide = { kind: "intro" | "konsep" | "contoh" | "latihan" | "rangkuman"; title: string; body: string };
+type SlideKind = "intro" | "konsep" | "contoh" | "latihan" | "rangkuman";
+type Slide = {
+  kind: SlideKind;
+  title: string;
+  body: string;
+  bullets?: string[];
+  keyTerms?: { term: string; def: string }[];
+  quote?: string;
+  question?: { q: string; options: string[]; answer: number };
+};
 
 function buildSlides(mapelName: string, babTitle: string): Slide[] {
   return [
-    { kind: "intro", title: babTitle, body: `Selamat datang di pembelajaran "${babTitle}" pada mata pelajaran ${mapelName}. Pada bab ini kamu akan memahami konsep, melihat contoh nyata, mencoba latihan, dan menutup dengan rangkuman.` },
-    { kind: "konsep", title: "Konsep Utama", body: `Inti dari "${babTitle}" adalah memahami dasar-dasarnya sebelum melangkah ke aplikasi praktis. Fokuskan perhatian pada definisi, fungsi, dan keterkaitannya dengan materi sebelumnya.` },
-    { kind: "konsep", title: "Pendalaman", body: `Mari kita gali lebih dalam. Bagian ini menjelaskan bagaimana "${babTitle}" bekerja secara sistematis, lengkap dengan terminologi yang perlu kamu kuasai.` },
-    { kind: "contoh", title: "Contoh Nyata", body: `Berikut contoh penerapan "${babTitle}" dalam kehidupan sehari-hari maupun dunia profesional. Perhatikan pola yang berulang sehingga mudah kamu kenali.` },
-    { kind: "latihan", title: "Latihan Singkat", body: `Coba jawab dalam hati: apa hal terpenting dari "${babTitle}"? Tulis 3 poin di catatanmu sebelum lanjut ke slide berikutnya.` },
-    { kind: "rangkuman", title: "Rangkuman", body: `Selamat! Kamu telah menyelesaikan "${babTitle}". Ingat poin utamanya, dan klaim XP-mu di slide terakhir untuk menyimpan progres.` },
+    {
+      kind: "intro",
+      title: babTitle,
+      body: `Di bab ini kamu akan memahami "${babTitle}" dalam mata pelajaran ${mapelName}. Total 6 slide interaktif: dari konsep, contoh nyata, sampai latihan singkat.`,
+      bullets: [
+        "Pahami definisi & ruang lingkup",
+        "Lihat contoh penerapan nyata",
+        "Coba latihan mini di slide 5",
+        "Klaim XP di slide terakhir",
+      ],
+    },
+    {
+      kind: "konsep",
+      title: "Konsep Utama",
+      body: `Inti dari "${babTitle}" adalah memahami dasar dan terminologi sebelum melangkah ke aplikasi praktis.`,
+      keyTerms: [
+        { term: babTitle, def: `Topik utama yang dibahas di bab ini dalam ${mapelName}.` },
+        { term: "Konteks", def: "Hubungan materi ini dengan bab sebelum & sesudahnya." },
+        { term: "Tujuan", def: "Apa yang harus kamu kuasai setelah bab selesai." },
+      ],
+    },
+    {
+      kind: "konsep",
+      title: "Pendalaman",
+      body: `Mari gali lebih dalam cara kerja "${babTitle}" secara sistematis.`,
+      bullets: [
+        `Langkah 1 — Identifikasi unsur ${babTitle}`,
+        "Langkah 2 — Susun hubungan antar konsep",
+        "Langkah 3 — Tarik kesimpulan & pola umum",
+        "Langkah 4 — Validasi dengan contoh",
+      ],
+    },
+    {
+      kind: "contoh",
+      title: "Contoh Nyata",
+      body: `Berikut penerapan "${babTitle}" di dunia nyata.`,
+      quote: `"${babTitle}" muncul setiap hari — di sekolah, di tempat kerja, bahkan dalam keputusan kecil. Belajar konsepnya = belajar membaca dunia.`,
+      bullets: [
+        "Studi kasus sederhana di lingkungan sekitar",
+        "Penerapan profesional di industri",
+        "Kesalahan umum yang sering terjadi",
+      ],
+    },
+    {
+      kind: "latihan",
+      title: "Latihan Singkat",
+      body: "Coba jawab pertanyaan ini untuk mengecek pemahamanmu.",
+      question: {
+        q: `Apa hal terpenting dari "${babTitle}"?`,
+        options: [
+          "Menghafal istilah tanpa konteks",
+          "Memahami konsep & cara menerapkannya",
+          "Mengabaikan contoh nyata",
+        ],
+        answer: 1,
+      },
+    },
+    {
+      kind: "rangkuman",
+      title: "Rangkuman & Klaim XP",
+      body: `Selamat! Kamu telah menuntaskan "${babTitle}".`,
+      bullets: [
+        "Kamu menguasai definisi & ruang lingkup",
+        "Kamu paham langkah sistematis",
+        "Kamu lihat contoh & coba latihan",
+        "Saatnya klaim XP-mu 🎉",
+      ],
+    },
   ];
 }
 
-const ICON_BY: Record<Slide["kind"], typeof Sparkles> = {
+const ICON_BY: Record<SlideKind, typeof Sparkles> = {
   intro: Sparkles, konsep: BookOpen, contoh: Lightbulb, latihan: Target, rangkuman: Trophy,
+};
+
+const LABEL_BY: Record<SlideKind, string> = {
+  intro: "Pembuka", konsep: "Konsep", contoh: "Contoh", latihan: "Latihan", rangkuman: "Rangkuman",
 };
 
 function BelajarPage() {
@@ -39,6 +115,7 @@ function BelajarPage() {
   const [slideIdx, setSlideIdx] = useState(0);
   const [direction, setDirection] = useState(1);
   const [claimed, setClaimed] = useState(false);
+  const [picked, setPicked] = useState<number | null>(null);
 
   const complete = useServerFn(completeChapter);
   const mutation = useMutation({
@@ -49,6 +126,27 @@ function BelajarPage() {
       else toast.success(`+${res.xpEarned} XP! Level ${res.level} · Streak ${res.streak} 🔥`);
     },
     onError: (e: Error) => toast.error(e.message ?? "Gagal menyimpan progres"),
+  });
+
+  const cover = useMemo(() => (mapel ? coverFor(mapel.slug, mapel.name) : null), [mapel]);
+
+  const babTitle = mapel?.bab[babIndex] ?? "";
+  const slides = useMemo(() => (mapel ? buildSlides(mapel.name, babTitle) : []), [mapel, babTitle]);
+  const total = slides.length;
+  const slide = slides[slideIdx];
+  const isLast = slideIdx === total - 1;
+  const progress = total > 0 ? ((slideIdx + 1) / total) * 100 : 0;
+
+  const next = () => { if (slideIdx < total - 1) { setDirection(1); setPicked(null); setSlideIdx((i) => i + 1); } };
+  const prev = () => { if (slideIdx > 0) { setDirection(-1); setPicked(null); setSlideIdx((i) => i - 1); } };
+
+  useEffect(() => {
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "ArrowRight") next();
+      if (e.key === "ArrowLeft") prev();
+    };
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
   });
 
   if (!mapel || Number.isNaN(babIndex) || babIndex < 0 || babIndex >= mapel.bab.length) {
@@ -71,33 +169,15 @@ function BelajarPage() {
     );
   }
 
-  const babTitle = mapel.bab[babIndex];
-  const slides = useMemo(() => buildSlides(mapel.name, babTitle), [mapel.name, babTitle]);
-  const total = slides.length;
-  const slide = slides[slideIdx];
   const Icon = ICON_BY[slide.kind];
-  const isLast = slideIdx === total - 1;
-  const progress = ((slideIdx + 1) / total) * 100;
-
-  const next = () => { if (slideIdx < total - 1) { setDirection(1); setSlideIdx((i) => i + 1); } };
-  const prev = () => { if (slideIdx > 0) { setDirection(-1); setSlideIdx((i) => i - 1); } };
-
-  useEffect(() => {
-    const onKey = (e: KeyboardEvent) => {
-      if (e.key === "ArrowRight") next();
-      if (e.key === "ArrowLeft") prev();
-    };
-    window.addEventListener("keydown", onKey);
-    return () => window.removeEventListener("keydown", onKey);
-  });
 
   return (
-    <div className="max-w-4xl mx-auto">
+    <div className="max-w-5xl mx-auto">
       <Link to="/mapel/$slug" params={{ slug: mapelSlug }} className="inline-flex items-center gap-2 text-sm font-semibold text-muted-foreground hover:text-foreground mb-4">
-        <ArrowLeft className="w-4 h-4" /> Kembali ke modul
+        <ArrowLeft className="w-4 h-4" /> Kembali ke {mapel.name}
       </Link>
 
-      {/* Progress bar */}
+      {/* Progress */}
       <div className="mb-4">
         <div className="flex items-center justify-between text-xs font-bold text-muted-foreground mb-1.5">
           <span>Bab {babIndex + 1} · {babTitle}</span>
@@ -109,10 +189,17 @@ function BelajarPage() {
       </div>
 
       {/* Slide stage */}
-      <div className="relative h-[460px] md:h-[520px] rounded-3xl overflow-hidden border border-border bg-white shadow-card">
-        <div className={`absolute inset-0 ${mapel.color} opacity-10`} />
+      <div className="relative h-[560px] md:h-[600px] rounded-3xl overflow-hidden border border-border bg-white shadow-card">
+        {cover && (
+          <>
+            <img src={cover.photoUrlLg} alt="" className="absolute inset-0 w-full h-full object-cover opacity-15" />
+            <div className={`absolute inset-0 ${cover.gradient} opacity-10`} />
+            <PatternSVG pattern={cover.pattern} className="absolute inset-0 w-full h-full opacity-20" />
+          </>
+        )}
         <div className="absolute -top-24 -right-24 w-72 h-72 rounded-full bg-gradient-purple opacity-20 blur-3xl" />
         <div className="absolute -bottom-20 -left-20 w-72 h-72 rounded-full bg-gradient-pink opacity-20 blur-3xl" />
+
         <AnimatePresence mode="wait" custom={direction}>
           <motion.div
             key={slideIdx}
@@ -121,21 +208,109 @@ function BelajarPage() {
             animate={{ opacity: 1, x: 0, scale: 1 }}
             exit={{ opacity: 0, x: -direction * 60, scale: 0.98 }}
             transition={{ type: "spring", stiffness: 220, damping: 26 }}
-            className="absolute inset-0 p-8 md:p-12 flex flex-col"
+            className="absolute inset-0 p-6 md:p-10 flex flex-col overflow-y-auto"
           >
             <div className="flex items-center gap-2">
-              <div className={`w-10 h-10 rounded-2xl ${mapel.color} text-white grid place-items-center shadow-soft`}>
+              <div className={`w-10 h-10 rounded-2xl ${cover?.gradient ?? "bg-gradient-brand"} text-white grid place-items-center shadow-soft`}>
                 <Icon className="w-5 h-5" />
               </div>
               <span className="text-[11px] font-extrabold uppercase tracking-wider text-muted-foreground">
-                {slide.kind} · slide {slideIdx + 1}
+                {LABEL_BY[slide.kind]} · slide {slideIdx + 1}
               </span>
             </div>
-            <h2 className="mt-5 text-3xl md:text-5xl font-extrabold tracking-tight">{slide.title}</h2>
-            <p className="mt-5 text-base md:text-lg text-muted-foreground leading-relaxed max-w-2xl">{slide.body}</p>
+
+            <h2 className="mt-4 text-3xl md:text-4xl font-extrabold tracking-tight">{slide.title}</h2>
+            <p className="mt-3 text-base md:text-lg text-muted-foreground leading-relaxed max-w-3xl">{slide.body}</p>
+
+            {/* Bullets */}
+            {slide.bullets && (
+              <ul className="mt-5 grid sm:grid-cols-2 gap-2.5 max-w-3xl">
+                {slide.bullets.map((b, i) => (
+                  <motion.li
+                    key={i}
+                    initial={{ opacity: 0, y: 8 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.1 + i * 0.06 }}
+                    className="flex items-start gap-2.5 p-3 rounded-xl bg-muted/50 border border-border/60"
+                  >
+                    <span className={`shrink-0 mt-0.5 w-6 h-6 rounded-full ${cover?.gradient ?? "bg-gradient-brand"} text-white grid place-items-center text-[11px] font-extrabold`}>
+                      {i + 1}
+                    </span>
+                    <span className="text-sm font-medium">{b}</span>
+                  </motion.li>
+                ))}
+              </ul>
+            )}
+
+            {/* Key terms */}
+            {slide.keyTerms && (
+              <div className="mt-5 grid sm:grid-cols-3 gap-3 max-w-3xl">
+                {slide.keyTerms.map((k, i) => (
+                  <motion.div
+                    key={i}
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.1 + i * 0.08 }}
+                    className="p-4 rounded-2xl bg-white border-2 border-border hover:border-primary/60 transition-colors"
+                  >
+                    <div className="text-[10px] font-extrabold uppercase tracking-wider text-primary mb-1">Term</div>
+                    <div className="font-extrabold text-sm leading-tight">{k.term}</div>
+                    <div className="text-xs text-muted-foreground mt-1.5 leading-relaxed">{k.def}</div>
+                  </motion.div>
+                ))}
+              </div>
+            )}
+
+            {/* Quote */}
+            {slide.quote && (
+              <div className="mt-5 p-4 rounded-2xl bg-gradient-hero border-l-4 border-primary max-w-3xl flex gap-3">
+                <Quote className="w-5 h-5 text-primary shrink-0 mt-0.5" />
+                <p className="text-sm md:text-base italic font-medium">{slide.quote}</p>
+              </div>
+            )}
+
+            {/* Question */}
+            {slide.question && (
+              <div className="mt-5 max-w-2xl">
+                <div className="font-bold mb-3">{slide.question.q}</div>
+                <div className="space-y-2">
+                  {slide.question.options.map((opt, i) => {
+                    const isPicked = picked === i;
+                    const isCorrect = i === slide.question!.answer;
+                    const show = picked !== null;
+                    const cls = !show
+                      ? "border-border bg-white hover:border-primary"
+                      : isCorrect
+                        ? "border-success bg-success/10"
+                        : isPicked
+                          ? "border-destructive bg-destructive/10"
+                          : "border-border bg-white opacity-60";
+                    return (
+                      <button
+                        key={i}
+                        disabled={show}
+                        onClick={() => setPicked(i)}
+                        className={`w-full text-left p-3 rounded-xl border-2 transition-all flex items-center gap-3 ${cls}`}
+                      >
+                        <span className="shrink-0 w-7 h-7 rounded-full bg-muted grid place-items-center text-xs font-extrabold">
+                          {String.fromCharCode(65 + i)}
+                        </span>
+                        <span className="text-sm font-medium">{opt}</span>
+                        {show && isCorrect && <CheckCircle2 className="ml-auto w-4 h-4 text-success" />}
+                      </button>
+                    );
+                  })}
+                </div>
+                {picked !== null && (
+                  <p className={`mt-3 text-sm font-bold ${picked === slide.question.answer ? "text-success" : "text-destructive"}`}>
+                    {picked === slide.question.answer ? "✓ Tepat! Lanjut ke slide berikutnya." : "Belum tepat — coba pahami kembali konsepnya."}
+                  </p>
+                )}
+              </div>
+            )}
 
             {isLast && (
-              <div className="mt-auto">
+              <div className="mt-6">
                 <motion.button
                   whileHover={{ scale: 1.03 }}
                   whileTap={{ scale: 0.97 }}
@@ -160,7 +335,7 @@ function BelajarPage() {
         </button>
         <div className="flex gap-1.5">
           {slides.map((_, i) => (
-            <button key={i} onClick={() => { setDirection(i > slideIdx ? 1 : -1); setSlideIdx(i); }}
+            <button key={i} onClick={() => { setDirection(i > slideIdx ? 1 : -1); setPicked(null); setSlideIdx(i); }}
               className={`h-1.5 rounded-full transition-all ${i === slideIdx ? "w-8 bg-gradient-brand" : "w-2 bg-muted"}`} />
           ))}
         </div>
