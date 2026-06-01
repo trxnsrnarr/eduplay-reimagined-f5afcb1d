@@ -16,11 +16,29 @@ export const listMyTransactions = createServerFn({ method: "GET" })
     const { supabase, userId } = context;
     const { data } = await supabase
       .from("transactions")
-      .select("*")
+      .select("id, order_id, status, gross_amount, payment_type, target_kind, target_id, created_at, updated_at")
       .eq("user_id", userId)
       .order("created_at", { ascending: false })
       .limit(50);
     return data ?? [];
+  });
+
+export const getMySubscription = createServerFn({ method: "GET" })
+  .middleware([requireSupabaseAuth])
+  .handler(async ({ context }) => {
+    const { supabase, userId } = context;
+    const { data } = await supabase
+      .from("subscriptions")
+      .select("plan, status, current_period_end")
+      .eq("user_id", userId)
+      .maybeSingle();
+    const isPremium = data?.status === "active" && (!data.current_period_end || new Date(data.current_period_end) > new Date());
+    return {
+      plan: data?.plan ?? "free",
+      status: data?.status ?? "inactive",
+      currentPeriodEnd: data?.current_period_end ?? null,
+      isPremium,
+    };
   });
 
 export const createMidtransTransaction = createServerFn({ method: "POST" })
