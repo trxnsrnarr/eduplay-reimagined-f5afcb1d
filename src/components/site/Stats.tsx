@@ -1,6 +1,6 @@
 const stats = [
-  { value: "50K+", label: "Siswa Aktif", color: "text-primary" },
-  { value: "1000+", label: "Video Pembelajaran", color: "text-accent" },
+  { value: "50K+", label: "Siswa Aktif", color: "text-success" },
+  { value: "1000+", label: "Video Pembelajaran", color: "text-primary" },
   { value: "100+", label: "Tryout UTBK", color: "text-secondary" },
   { value: "98%", label: "Tingkat Kepuasan", color: "text-success" },
 ];
