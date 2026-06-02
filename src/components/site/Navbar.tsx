@@ -1,12 +1,11 @@
 import { Link } from "@tanstack/react-router";
-import { Sparkles } from "lucide-react";
+import logoUrl from "@/assets/eduverse-logo.svg";
 
 const links = [
   { href: "#fitur", label: "Fitur" },
-  { href: "#cara-kerja", label: "Cara Kerja" },
-  { href: "#harga", label: "Harga" },
-  { href: "#kreator", label: "Kreator" },
-  { href: "#faq", label: "FAQ" },
+  { href: "#game", label: "Game" },
+  { href: "#platform", label: "Platform" },
+  { href: "#testimoni", label: "Testimoni" },
 ];
 
 export function Navbar() {
@@ -14,9 +13,7 @@ export function Navbar() {
     <header className="sticky top-0 z-50 backdrop-blur-md bg-background/70 border-b border-border/40">
       <div className="container mx-auto flex items-center justify-between px-6 py-4">
         <Link to="/" className="flex items-center gap-2 group">
-          <div className="w-10 h-10 rounded-xl bg-gradient-brand grid place-items-center shadow-soft group-hover:scale-105 transition-transform">
-            <Sparkles className="w-5 h-5 text-white" strokeWidth={2.5} />
-          </div>
+          <img src={logoUrl} alt="Eduverse" className="w-10 h-10 group-hover:scale-105 transition-transform drop-shadow-[0_4px_18px_rgba(139,92,246,0.45)]" />
           <span className="text-2xl font-extrabold tracking-tight">
             Edu<span className="text-gradient-brand">verse</span>
           </span>
